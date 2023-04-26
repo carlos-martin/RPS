@@ -1,0 +1,19 @@
+{
+    "id": "378c576f-d4d3-4c67-9d00-7f7667a3d104",
+    "player1": {
+        "id": "627023a1-7fc4-417d-8828-6acd25e92689",
+        "name": "Joe"
+    },
+    "player2": {
+        "id": "98ddc18c-2cc6-43d8-bcb0-c174ad2a6972",
+        "name": "Carlos"
+    },
+    "currentRound": null,
+    "finishedRounds": [
+        {
+            "id": "22b0073a-0359-4378-b937-747e5eb4e0b2",
+            "player1Move": "ROCK",
+            "player2Move": "PAPER"
+        }
+    ]
+}
