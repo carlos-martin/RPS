@@ -16,17 +16,6 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
-        .onAppear {
-            let service = GameService()
-
-            service.createGame { game, _ in
-                print(game ?? "nil")
-            }
-
-            service.fetchAllGames { games, _ in
-                print(games.description)
-            }
-        }
     }
 }
 
