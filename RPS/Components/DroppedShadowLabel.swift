@@ -17,9 +17,3 @@ struct DroppedShadowLabel: View {
         .padding()
     }
 }
-
-struct DroppedShadowLabel_Previews: PreviewProvider {
-    static var previews: some View {
-        DroppedShadowLabel(title: "Hello world!")
-    }
-}

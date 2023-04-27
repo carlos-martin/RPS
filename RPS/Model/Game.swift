@@ -13,4 +13,8 @@ struct Game: Codable, JsonConvertable {
     let player2: Player?
     var currentRound: Round?
     var finishedRounds: [Round]
+
+    func hasAvailablePlace() -> Bool {
+        player1 == nil || player2 == nil
+    }
 }

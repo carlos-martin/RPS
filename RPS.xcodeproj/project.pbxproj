@@ -13,6 +13,9 @@
 		1A12150029F9AAD70083F147 /* NewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1214FF29F9AAD70083F147 /* NewGameView.swift */; };
 		1A12150229F9AB090083F147 /* JoinGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12150129F9AB090083F147 /* JoinGameView.swift */; };
 		1A12150429F9AF9E0083F147 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12150329F9AF9E0083F147 /* GameView.swift */; };
+		1A12150629FAA2810083F147 /* PlayerTextFiel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12150529FAA2810083F147 /* PlayerTextFiel.swift */; };
+		1A12150829FAA2CE0083F147 /* SubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12150729FAA2CE0083F147 /* SubmitButton.swift */; };
+		1A12150A29FAA3050083F147 /* TextFieldBasedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12150929FAA3050083F147 /* TextFieldBasedView.swift */; };
 		1A686A0F29F6EF290091FB24 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A686A0E29F6EF290091FB24 /* Game.swift */; };
 		1A686A1029F6EF290091FB24 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A686A0E29F6EF290091FB24 /* Game.swift */; };
 		1A686A1229F6EF4A0091FB24 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A686A1129F6EF490091FB24 /* Player.swift */; };
@@ -80,6 +83,9 @@
 		1A1214FF29F9AAD70083F147 /* NewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameView.swift; sourceTree = "<group>"; };
 		1A12150129F9AB090083F147 /* JoinGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameView.swift; sourceTree = "<group>"; };
 		1A12150329F9AF9E0083F147 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		1A12150529FAA2810083F147 /* PlayerTextFiel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTextFiel.swift; sourceTree = "<group>"; };
+		1A12150729FAA2CE0083F147 /* SubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitButton.swift; sourceTree = "<group>"; };
+		1A12150929FAA3050083F147 /* TextFieldBasedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldBasedView.swift; sourceTree = "<group>"; };
 		1A686A0E29F6EF290091FB24 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		1A686A1129F6EF490091FB24 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		1A686A1529F6EFA60091FB24 /* get_all_games_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_all_games_response.json; sourceTree = "<group>"; };
@@ -161,6 +167,9 @@
 			isa = PBXGroup;
 			children = (
 				1A1214F929F9A8C90083F147 /* DroppedShadowLabel.swift */,
+				1A12150529FAA2810083F147 /* PlayerTextFiel.swift */,
+				1A12150729FAA2CE0083F147 /* SubmitButton.swift */,
+				1A12150929FAA3050083F147 /* TextFieldBasedView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -450,13 +459,16 @@
 				1A12150229F9AB090083F147 /* JoinGameView.swift in Sources */,
 				1A686A2C29F6FB6C0091FB24 /* MoveType.swift in Sources */,
 				1A69F09029F80F69001908DA /* URLConfig.swift in Sources */,
+				1A12150629FAA2810083F147 /* PlayerTextFiel.swift in Sources */,
 				1A88D98B29F9171F002AEB45 /* RoundQuery.swift in Sources */,
+				1A12150A29FAA3050083F147 /* TextFieldBasedView.swift in Sources */,
 				1A1214F529F9A57A0083F147 /* InitialView.swift in Sources */,
 				1A686A3C29F781DF0091FB24 /* Requestable.swift in Sources */,
 				1A12150029F9AAD70083F147 /* NewGameView.swift in Sources */,
 				1A88D98D29F9173A002AEB45 /* NewGameQuery.swift in Sources */,
 				1A88D98929F91700002AEB45 /* GameQuery.swift in Sources */,
 				1A8D6AF529F6EE880000AADC /* RPSApp.swift in Sources */,
+				1A12150829FAA2CE0083F147 /* SubmitButton.swift in Sources */,
 				1A69F09329F80FD9001908DA /* ServiceRequest.swift in Sources */,
 				1A69F08E29F80D79001908DA /* Move.swift in Sources */,
 				1A12150429F9AF9E0083F147 /* GameView.swift in Sources */,
