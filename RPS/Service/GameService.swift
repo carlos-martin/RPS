@@ -18,6 +18,8 @@ protocol GameServiceProtocol {
 }
 
 class GameService: GameServiceProtocol {
+    static let sharedInstance: GameServiceProtocol = GameService()
+
     func fetchAllGames(completion: @escaping ([Game], Error?) -> Void) {
         ServiceRequest.make(for: AllGamesQuery()) { jsonString, statusCode, error in
             switch statusCode {
