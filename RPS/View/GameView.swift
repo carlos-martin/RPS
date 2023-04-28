@@ -25,18 +25,23 @@ struct GameView: View {
     @State private var isLoading = true
 
     var body: some View {
-        VStack {
-            if isLoading {
-                ProgressView()
-                    .padding()
-            } else if let player1 = player1, let player2 = player2 {
-                PlayerInAGameView(player1: player1, player2: player2)
-            } else {
-                Text("WTF!")
+        ScrollView {
+            VStack {
+                if isLoading {
+                    ProgressView()
+                        .padding()
+                } else if let player1 = player1, let player2 = player2 {
+                    PlayerInAGameView(player1: player1, player2: player2)
+                } else {
+                    EmptyView()
+                }
             }
         }
         .navigationTitle("Active Game")
         .onAppear {
+            checkingGame()
+        }
+        .refreshable {
             checkingGame()
         }
     }
