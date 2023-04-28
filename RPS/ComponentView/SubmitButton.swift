@@ -16,7 +16,6 @@ struct SubmitButton: View {
         Button(action: action) {
             Text("Submit")
         }
-        .padding()
         .disabled(disable)
     }
 }

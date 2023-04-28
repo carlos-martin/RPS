@@ -28,4 +28,13 @@ enum PlayerType {
             return player?.name ?? "No player"
         }
     }
+
+    var player: Player? {
+        switch self {
+        case .player1(let player):
+            return player
+        case .player2(let player):
+            return player
+        }
+    }
 }

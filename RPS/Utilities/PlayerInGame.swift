@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlayerInGame {
-    var player: PlayerType
+    var playerType: PlayerType
     var amI: Bool
     var moveType: MoveType?
 }

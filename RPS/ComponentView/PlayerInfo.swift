@@ -8,47 +8,94 @@
 import SwiftUI
 
 struct PlayerInfo: View {
-    var player: PlayerInGame
+    var playerInGame: PlayerInGame
+    var game: Game
 
     var title: String {
-        player.player.title
+        playerInGame.playerType.title
     }
     var playerName: String {
-        player.player.name
+        playerInGame.playerType.name
     }
     var move: String {
-        player.moveType?.description ?? "No movement"
+        playerInGame.moveType?.description ?? "No movement"
     }
+
+    @State var selection: String = ""
+    @State var isDisable: Bool = false
     
     var body: some View {
         HStack{
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(title).font(.title2)
-                    if player.amI {
-                        Text("(you)").font(.footnote)
-                    }
-                }
-                HStack(alignment: .center) {
-                    Image(systemName: "person")
-                    Text(playerName).font(.title)
-                }
-                HStack(alignment: .center) {
-                    Image(systemName: "hand.raised")
-                    Text(move).font(.title)
-                }
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            VStack(alignment: .leading, spacing: 0) {
+                headerView
+                playerSummaryView
+                moveSummaryView
             }
             Spacer()
         }
         .padding()
     }
+
+    var headerView: some View {
+        HStack {
+            Text(title).font(.title2)
+            if playerInGame.amI {
+                Text("(you)").font(.footnote)
+            }
+        }
+    }
+
+    var playerSummaryView: some View {
+        HStack(alignment: .center, spacing: 8) {
+            Image(systemName: "person")
+            Text(playerName).font(.title)
+        }
+    }
+
+    var moveSummaryView: some View {
+        HStack(alignment: .center, spacing: 8) {
+            Image(systemName: "hand.raised")
+            if playerInGame.amI {
+                let text = selection.isEmpty ? "No movement" : selection
+                Text(text).font(.title)
+                DropDownView(selection: $selection)
+                submitButtonView
+            } else {
+                Text(move).font(.title)
+            }
+        }
+    }
+
+    var submitButtonView: some View {
+        SubmitButton(disable: $isDisable, action: gameMove)
+    }
+
+    func gameMove() {
+        isDisable = true
+        guard let moveType = MoveType(rawValue: selection),
+              let player = playerInGame.playerType.player else {
+            return
+        }
+        let move = Move(player: player, move: moveType)
+        GameService.sharedInstance.gameMove(to: game, move: move) { round, error in
+            guard let round = round else {
+                print(String(describing: error))
+                isDisable = false
+                return
+            }
+            print(round.toJson() ?? "error encoding to json")
+        }
+    }
 }
 
 struct PlayerInfo_Previews: PreviewProvider {
     static var previews: some View {
+        EmptyView()
         let player = Player(id: "id", name: "Carlos")
+        let game = Game(id: "id", player1: player, player2: nil, finishedRounds: [])
         let playerType: PlayerType = .player1(player)
-        PlayerInfo(player: PlayerInGame(player: playerType, amI: true, moveType: .paper))
+        PlayerInfo(
+            playerInGame: PlayerInGame(playerType: playerType, amI: true, moveType: nil),
+            game: game)
     }
 }

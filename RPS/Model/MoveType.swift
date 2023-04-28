@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MoveType: String, Codable, JsonConvertable, CustomStringConvertible {
+enum MoveType: String, Codable, JsonConvertable, CustomStringConvertible, CaseIterable {
     case rock = "ROCK"
     case paper = "PAPER"
     case scissor = "SCISSOR"
@@ -21,5 +21,13 @@ enum MoveType: String, Codable, JsonConvertable, CustomStringConvertible {
         case .scissor:
             return "✌️"
         }
+    }
+
+    static var cases: [String] {
+        var result = [""]
+        result.append(contentsOf:allCases.map { move in
+            move.description
+        })
+        return result
     }
 }

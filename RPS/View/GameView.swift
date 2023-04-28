@@ -27,7 +27,8 @@ struct GameView: View {
                 } else {
                     PlayerInAGameView(
                         player1: game.playerOneInGame(myId: player.id),
-                        player2: game.playerTwoInGame(myId: player.id))
+                        player2: game.playerTwoInGame(myId: player.id),
+                        game: game)
                 }
             }
         }

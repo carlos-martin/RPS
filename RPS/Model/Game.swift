@@ -20,14 +20,14 @@ struct Game: Codable, JsonConvertable {
 
     func playerOneInGame(myId: String) -> PlayerInGame {
         PlayerInGame(
-            player: .player1(player1),
+            playerType: .player1(player1),
             amI: (player1?.id ?? "") == myId,
             moveType: currentRound?.player1Move)
     }
 
     func playerTwoInGame(myId: String) -> PlayerInGame {
         PlayerInGame(
-            player: .player2(player2),
+            playerType: .player2(player2),
             amI: (player2?.id ?? "") == myId,
             moveType: currentRound?.player2Move)
     }
