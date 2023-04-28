@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct PlayerInfo: View {
-    //var playerType: PlayerType
-    //var moveType: MoveType?
     var player: PlayerInGame
 
     var title: String {
