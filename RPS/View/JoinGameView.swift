@@ -35,7 +35,7 @@ struct JoinGameView: View {
 
     func submit() {
         isLoading = true
-        
+
         GameService.sharedInstance.fetchAllGames { games, error in
             let game = games.first { game in
                 game.hasAvailablePlace()

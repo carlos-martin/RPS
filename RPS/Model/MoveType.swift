@@ -13,6 +13,13 @@ enum MoveType: String, Codable, JsonConvertable, CustomStringConvertible {
     case scissor = "SCISSOR"
 
     var description: String {
-        self.rawValue
+        switch self {
+        case .rock:
+            return "👊"
+        case .paper:
+            return "🖐️"
+        case .scissor:
+            return "✌️"
+        }
     }
 }
