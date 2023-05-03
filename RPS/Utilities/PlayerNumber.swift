@@ -1,5 +1,5 @@
 //
-//  PlayerType.swift
+//  PlayerNumber.swift
 //  RPS
 //
 //  Created by Carlos Martin on 2023-04-28.
@@ -7,33 +7,33 @@
 
 import Foundation
 
-enum PlayerType {
-    case player1(Player?)
-    case player2(Player?)
+enum PlayerNumber {
+    case one(Player?)
+    case two(Player?)
 
-    var title: String {
+    var description: String {
         switch self {
-        case .player1:
+        case .one:
             return "Player 1"
-        case .player2:
+        case .two:
             return "Player 2"
         }
     }
 
     var name: String {
         switch self {
-        case .player1(let player):
+        case .one(let player):
             return player?.name ?? "No player"
-        case .player2(let player):
+        case .two(let player):
             return player?.name ?? "No player"
         }
     }
 
     var player: Player? {
         switch self {
-        case .player1(let player):
+        case .one(let player):
             return player
-        case .player2(let player):
+        case .two(let player):
             return player
         }
     }

@@ -9,6 +9,6 @@ import Foundation
 
 struct Round: Codable, JsonConvertable {
     let id: String
-    var player1Move: MoveType?
-    var player2Move: MoveType?
+    var player1Move: MoveOption?
+    var player2Move: MoveOption?
 }

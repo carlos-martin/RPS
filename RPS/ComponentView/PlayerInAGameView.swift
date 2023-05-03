@@ -25,8 +25,8 @@ struct PlayerInAGameView_Previews: PreviewProvider {
         let player = Player(id: "id", name: "Carlos")
         let game = Game(id: "id", player1: player, player2: nil, finishedRounds: [])
         PlayerInAGameView(
-            player1: PlayerInGame(playerType: .player1(player), amI: true, moveType: .paper),
-            player2: PlayerInGame(playerType: .player2(nil), amI: false, moveType: nil),
+            player1: PlayerInGame(number: .one(player), isItMe: true, currentMove: .paper),
+            player2: PlayerInGame(number: .two(nil), isItMe: false),
             game: game
         )
     }

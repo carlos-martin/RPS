@@ -8,7 +8,10 @@
 import Foundation
 
 struct PlayerInGame {
-    var playerType: PlayerType
-    var amI: Bool
-    var moveType: MoveType?
+    var number: PlayerNumber
+    var isItMe: Bool
+    var currentMove: MoveOption?
+    var hasMoved: Bool {
+        currentMove != nil
+    }
 }

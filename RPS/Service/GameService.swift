@@ -25,7 +25,7 @@ class GameService: GameServiceProtocol {
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
-                    print(String(describing: error))
+                    printlog(String(describing: error))
                     completion([], error)
                     return
                 }
@@ -45,7 +45,7 @@ class GameService: GameServiceProtocol {
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
-                    print(String(describing: error))
+                    printlog(String(describing: error))
                     completion(nil, error)
                     return
                 }
@@ -65,7 +65,7 @@ class GameService: GameServiceProtocol {
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
-                    print(String(describing: error))
+                    printlog(String(describing: error))
                     completion(nil, error)
                     return
                 }
@@ -85,7 +85,7 @@ class GameService: GameServiceProtocol {
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
-                    print(String(describing: error))
+                    printlog(String(describing: error))
                     completion(nil, error)
                     return
                 }
@@ -105,7 +105,7 @@ class GameService: GameServiceProtocol {
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
-                    print(String(describing: error))
+                    printlog(String(describing: error))
                     completion(nil, error)
                     return
                 }
@@ -125,7 +125,7 @@ class GameService: GameServiceProtocol {
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
-                    print(String(describing: error))
+                    printlog(String(describing: error))
                     completion(nil, error)
                     return
                 }

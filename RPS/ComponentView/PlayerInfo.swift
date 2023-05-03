@@ -12,17 +12,19 @@ struct PlayerInfo: View {
     var game: Game
 
     var title: String {
-        playerInGame.playerType.title
+        playerInGame.number.description
     }
     var playerName: String {
-        playerInGame.playerType.name
+        playerInGame.number.name
     }
     var move: String {
-        playerInGame.moveType?.description ?? "No movement"
+        playerInGame.currentMove?.description ?? "No movement"
     }
 
     @State var selection: String = ""
     @State var isDisable: Bool = false
+    @State var isLoading: Bool = false
+    @State var text: String = ""
     
     var body: some View {
         HStack{
@@ -39,7 +41,7 @@ struct PlayerInfo: View {
     var headerView: some View {
         HStack {
             Text(title).font(.title2)
-            if playerInGame.amI {
+            if playerInGame.isItMe {
                 Text("(you)").font(.footnote)
             }
         }
@@ -55,13 +57,17 @@ struct PlayerInfo: View {
     var moveSummaryView: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: "hand.raised")
-            if playerInGame.amI {
-                let text = selection.isEmpty ? "No movement" : selection
+            if playerInGame.isItMe {
+                let text = selection.description.isEmpty ? "No movement" : selection.description
                 Text(text).font(.title)
                 DropDownView(selection: $selection)
                 submitButtonView
             } else {
                 Text(move).font(.title)
+            }
+            if isLoading {
+                ProgressView()
+                    .padding()
             }
         }
     }
@@ -72,18 +78,21 @@ struct PlayerInfo: View {
 
     func gameMove() {
         isDisable = true
-        guard let moveType = MoveType(rawValue: selection),
-              let player = playerInGame.playerType.player else {
+        isLoading = true
+        guard let player = playerInGame.number.player else {
+            isDisable = false
+            isLoading = false
             return
         }
-        let move = Move(player: player, move: moveType)
+        let move = Move(player: player, move: MoveOption(description: selection))
         GameService.sharedInstance.gameMove(to: game, move: move) { round, error in
+            isLoading = false
             guard let round = round else {
-                print(String(describing: error))
+                printlog(String(describing: error))
                 isDisable = false
                 return
             }
-            print(round.toJson() ?? "error encoding to json")
+            printlog(round.toJson() ?? "error encoding to json")
         }
     }
 }
@@ -93,9 +102,9 @@ struct PlayerInfo_Previews: PreviewProvider {
         EmptyView()
         let player = Player(id: "id", name: "Carlos")
         let game = Game(id: "id", player1: player, player2: nil, finishedRounds: [])
-        let playerType: PlayerType = .player1(player)
+        let number: PlayerNumber = .one(player)
         PlayerInfo(
-            playerInGame: PlayerInGame(playerType: playerType, amI: true, moveType: nil),
+            playerInGame: PlayerInGame(number: number, isItMe: true),
             game: game)
     }
 }

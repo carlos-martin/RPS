@@ -23,7 +23,7 @@ extension JsonConvertable {
             }
             return jsonString
         } catch {
-            print("Error encoding \(type(of: self)) to JSON: \(error.localizedDescription)")
+            printlog("Error encoding \(type(of: self)) to JSON: \(error.localizedDescription)")
             return nil
         }
     }
@@ -35,7 +35,7 @@ extension JsonConvertable {
         do {
             return try JSONDecoder().decode(Self.self, from: jsonData)
         } catch {
-            print("Error parsing single JSON data: \(error.localizedDescription)")
+            printlog("Error parsing single JSON data: \(error.localizedDescription)")
             return nil
         }
     }
@@ -47,7 +47,7 @@ extension JsonConvertable {
         do {
             return try JSONDecoder().decode([Self].self, from: jsonData)
         } catch {
-            print("Error parsing array JSON data: \(error.localizedDescription)")
+            printlog("Error parsing array JSON data: \(error.localizedDescription)")
             return nil
         }
     }

@@ -17,8 +17,8 @@ struct Move: Codable, JsonConvertable {
         self.move = try container.decode(String.self, forKey: .move)
     }
 
-    init(player: Player, move: MoveType) {
+    init(player: Player, move: MoveOption) {
         self.playerId = player.id
-        self.move = move.description
+        self.move = move.rawValue
     }
 }

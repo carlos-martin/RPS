@@ -10,7 +10,7 @@ import SwiftUI
 struct DropDownView: View {
     @Binding var selection: String
 
-    var source: [String] = MoveType.cases
+    var source: [String] = MoveOption.cases
 
     var body: some View {
         Menu {
@@ -29,7 +29,7 @@ struct DropDownView: View {
 
 struct DropDownView_Previews: PreviewProvider {
     static var previews: some View {
-        DropDownView(selection: .constant(""))
+        DropDownView(selection: .constant(MoveOption.paper.description))
     }
 }
 

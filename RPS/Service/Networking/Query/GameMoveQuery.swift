@@ -14,6 +14,8 @@ struct GameMoveQuery: Requestable {
 
     init(gameId: String, move: Move) {
         url = URLConfig.move(to: gameId)
+        printlog("url: \(url)")
         parameters = move.toJson()
+        printlog("parameters: \(parameters ?? "<empty>")")
     }
 }

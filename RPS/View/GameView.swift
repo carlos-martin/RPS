@@ -50,7 +50,7 @@ struct GameView: View {
             }
             self.game = game
             isLoading = false
-            print(game.toJson() ?? "game not converted to json")
+            printlog(game.toJson() ?? "game not converted to json")
         }
     }
 
