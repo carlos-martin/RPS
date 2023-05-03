@@ -8,49 +8,29 @@
 import SwiftUI
 
 struct NewGameView: View {
-    @State private var name = ""
-    @State private var isLoading = false
-    @State private var isNavigating = false
-    @State private var game: Game?
-    @State private var player: Player?
+    @ObservedObject var viewModel: NewGameViewModel
 
     var body: some View {
-        TextFieldBasedView(title: "New Game", submit: submit, isLoading: $isLoading, playerName: $name)
-            .navigationDestination(isPresented: $isNavigating) {
-                if let game = game, let player = player {
+        textField
+            .navigationDestination(isPresented: $viewModel.isNavigating) {
+                if let game = viewModel.game, let player = viewModel.player {
                     GameView(viewModel: GameViewModel(game: game, me: player))
                 }
                 EmptyView()
-        }
+            }
     }
 
-    func submit() {
-        isLoading = true
-
-        GameService.sharedInstance.createGame { game, error in
-            guard let game = game else {
-                //TODO: Show error messsage
-                isLoading = false
-                return
-            }
-            self.game = game
-            GameService.sharedInstance.addPlayer(to: game, name: name) { player, error in
-                guard let player = player else {
-                    //TODO: Show error messsage
-                    isLoading = false
-                    return
-                }
-
-                self.player = player
-                isLoading = false
-                isNavigating = true
-            }
-        }
+    var textField: some View {
+        TextFieldBasedView(
+            title: "New Game",
+            submit: viewModel.submit,
+            isLoading: $viewModel.isLoading,
+            playerName: $viewModel.myName)
     }
 }
 
 struct NewGameView_Previews: PreviewProvider {
     static var previews: some View {
-        NewGameView()
+        NewGameView(viewModel: NewGameViewModel())
     }
 }

@@ -22,6 +22,7 @@ class GameService: GameServiceProtocol {
 
     func fetchAllGames(completion: @escaping ([Game], Error?) -> Void) {
         ServiceRequest.make(for: AllGamesQuery()) { jsonString, statusCode, error in
+            printlog(statusCode.description)
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
@@ -42,6 +43,7 @@ class GameService: GameServiceProtocol {
 
     func fetchGame(id: String, completion: @escaping (Game?, Error?) -> Void) {
         ServiceRequest.make(for: GameQuery(gameId: id)) { jsonString, statusCode, error in
+            printlog(statusCode.description)
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
@@ -62,6 +64,7 @@ class GameService: GameServiceProtocol {
 
     func fetchRound(gameId: String, roundId: String, completion: @escaping (Round?, Error?) -> Void) {
         ServiceRequest.make(for: RoundQuery(gameId: gameId, roundId: roundId)) { jsonString, statusCode, error in
+            printlog(statusCode.description)
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
@@ -82,6 +85,7 @@ class GameService: GameServiceProtocol {
 
     func createGame(completion: @escaping (Game?, Error?) -> Void) {
         ServiceRequest.make(for: NewGameQuery()) { jsonString, statusCode, error in
+            printlog(statusCode.description)
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
@@ -102,6 +106,7 @@ class GameService: GameServiceProtocol {
 
     func addPlayer(to game: Game, name: String, completion: @escaping (Player?, Error?) -> Void) {
         ServiceRequest.make(for: AddPlayerQuery(gameId: game.id, name: name)) { jsonString, statusCode, error in
+            printlog(statusCode.description)
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {
@@ -122,6 +127,7 @@ class GameService: GameServiceProtocol {
 
     func gameMove(to game: Game, move: Move, completion: @escaping (Round?, Error?) -> Void) {
         ServiceRequest.make(for: GameMoveQuery(gameId: game.id, move: move)) { jsonString, statusCode, error in
+            printlog(statusCode.description)
             switch statusCode {
             case .success:
                 guard let jsonString = jsonString else {

@@ -1,13 +1,14 @@
 //
-//  PlayerInfoViewModel.swift
+//  PlayerInGameViewModel.swift
 //  RPS
 //
 //  Created by Carlos Martin on 2023-05-03.
 //
 
 import Combine
+import SwiftUI
 
-class PlayerInfoViewModel: ObservableObject {
+class PlayerInGameViewModel: ObservableObject {
     var playerInGame: PlayerInGame
     var game: Game
 
@@ -25,12 +26,19 @@ class PlayerInfoViewModel: ObservableObject {
     @Published var isDisable: Bool
     @Published var isLoading: Bool
 
+    private var bag: Set<AnyCancellable>
+
     init(playerInGame: PlayerInGame, game: Game) {
         self.playerInGame = playerInGame
         self.game = game
         self.selection = ""
         self.isDisable = false
         self.isLoading = false
+        self.bag = Set<AnyCancellable>()
+    }
+
+    deinit {
+        bag.removeAll()
     }
 
     func gameMove() {
@@ -43,7 +51,10 @@ class PlayerInfoViewModel: ObservableObject {
         }
         let move = Move(player: player, move: MoveOption(description: selection))
         GameService.sharedInstance.gameMove(to: game, move: move) { [weak self] round, error in
-            self?.isLoading = false
+            DispatchQueue.main.async {
+                self?.isLoading = false
+            }
+
             guard let round = round else {
                 printlog(String(describing: error))
                 self?.isDisable = false

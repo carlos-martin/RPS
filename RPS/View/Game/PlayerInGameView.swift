@@ -1,5 +1,5 @@
 //
-//  PlayerInfoView.swift
+//  PlayerInGameView.swift
 //  RPS
 //
 //  Created by Carlos Martin on 2023-04-28.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct PlayerInfoView: View {
-    @ObservedObject var viewModel: PlayerInfoViewModel
+struct PlayerInGameView: View {
+    @ObservedObject var viewModel: PlayerInGameViewModel
 
     var body: some View {
         HStack{
@@ -67,7 +67,7 @@ struct PlayerInfo_Previews: PreviewProvider {
         let game = Game(id: "id", player1: player, player2: nil, finishedRounds: [])
         let number: PlayerNumber = .one(player)
         let playerInGame = PlayerInGame(number: number, isItMe: true)
-        let viewModel = PlayerInfoViewModel(playerInGame: playerInGame, game: game)
-        PlayerInfoView(viewModel: viewModel)
+        let viewModel = PlayerInGameViewModel(playerInGame: playerInGame, game: game)
+        PlayerInGameView(viewModel: viewModel)
     }
 }
