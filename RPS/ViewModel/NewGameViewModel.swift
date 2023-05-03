@@ -12,6 +12,7 @@ class NewGameViewModel: ObservableObject {
     @Published var myName: String
     @Published var isLoading: Bool
     @Published var isNavigating: Bool
+    @Published var onError: Bool
     @Published var game: Game?
     @Published var player: Player?
 
@@ -21,6 +22,7 @@ class NewGameViewModel: ObservableObject {
         self.myName = ""
         self.isLoading = false
         self.isNavigating = false
+        self.onError = false
         self.game = game
         self.player = player
         self.bag = Set<AnyCancellable>()
@@ -35,16 +37,18 @@ class NewGameViewModel: ObservableObject {
 
         GameService.sharedInstance.createGame { [weak self] game, error in
             guard let self = self, let game = game else {
-                //TODO: Show error messsage
                 printlog(String(describing: error))
-                self?.isLoading = false
+                DispatchQueue.main.async {
+                    self?.onError = true
+                    self?.isLoading = false
+                }
                 return
             }
 
             GameService.sharedInstance.addPlayer(to: game, name: self.myName) { player, error in
                 guard let player = player else {
-                    //TODO: Show error messsage
                     printlog(String(describing: error))
+                    self.onError = true
                     self.isLoading = false
                     return
                 }

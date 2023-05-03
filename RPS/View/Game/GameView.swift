@@ -9,14 +9,19 @@ import SwiftUI
 import Combine
 
 struct GameView: View {
-    @ObservedObject var viewModel: GameViewModel
+    @State private var isLoading: Bool = true
+    @State private var onError: Bool = false
 
-    @State var isLoading: Bool = true
+    @State var game: Game
+    var me: Player
 
     var body: some View {
         ScrollView {
-            loadingView.isHidden($isLoading.not)
-            gameView.isHidden($isLoading)
+            if isLoading {
+                loadingView
+            } else {
+                gameView
+            }
         }
         .navigationTitle("Active Game")
         .onAppear {
@@ -25,6 +30,7 @@ struct GameView: View {
         .refreshable {
             checkingGame()
         }
+        .genericErrorAlert(isPresented: $onError)
     }
 
     var loadingView: some View {
@@ -36,31 +42,34 @@ struct GameView: View {
         VStack {
             PlayerInGameView(
                 viewModel: PlayerInGameViewModel(
-                    playerInGame: viewModel.playerOne,
-                    game: viewModel.game))
+                    playerInGame: game.playerOneInGame(myId: me.id),
+                    game: game))
 
             PlayerInGameView(
                 viewModel: PlayerInGameViewModel(
-                    playerInGame: viewModel.playerTwo,
-                    game: viewModel.game))
+                    playerInGame: game.playerTwoInGame(myId: me.id),
+                    game: game))
         }
     }
 
     func checkingGame() {
         GameService.sharedInstance
-            .fetchGame(id: viewModel.game.id) { game, error in
-                isLoading = false
-
+            .fetchGame(id: game.id) { game, error in
                 guard let game = game else {
-                    //TODO: Show error messsage
                     printlog(String(describing: error))
+                    DispatchQueue.main.async {
+                        self.onError = true
+                        self.isLoading = false
+                    }
                     return
                 }
                 printlog(game.toJson() ?? "")
 
                 DispatchQueue.main.async {
-                    viewModel.game = game
+                    self.game = game
+                    self.isLoading = false
                 }
+
             }
     }
 }
@@ -69,7 +78,6 @@ struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         let player = Player(id: "id", name: "Carlos")
         let game = Game(id: "id", player1: player, player2: nil, finishedRounds: [])
-        let viewModel = GameViewModel(game: game, me: player)
-        GameView(viewModel: viewModel)
+        GameView(game: game, me: player)
     }
 }

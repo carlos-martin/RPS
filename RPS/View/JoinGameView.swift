@@ -14,16 +14,12 @@ struct JoinGameView: View {
         textField
             .navigationDestination(isPresented: $viewModel.isNavigating) {
                 if let game = viewModel.game, let player = viewModel.player {
-                    GameView(viewModel: GameViewModel(game: game, me: player))
+                    GameView(game: game, me: player)
                 }
                 EmptyView()
             }
-            .alert(isPresented: $viewModel.noGames) {
-                Alert(
-                    title: Text("Oops"),
-                    message: Text("No games available, try again later or create a new game."),
-                    dismissButton: .default(Text("OK"))
-                )
+            .alert(isPresented: $viewModel.onError) {
+                viewModel.errorType == .noGame ? Alert.noGames : Alert.genericError
             }
     }
 

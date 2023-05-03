@@ -16,13 +16,33 @@ extension View {
         }
     }
 
-    func standarAlert(isPresented: Binding<Bool>) -> some View {
+    func noGamesAlert(isPresented: Binding<Bool>) -> some View {
         alert(isPresented: isPresented) {
-            Alert(
-                title: Text("Oops"),
-                message: Text("Something went wrong, try it again latter."),
-                dismissButton: .default(Text("OK"))
-            )
+            Alert.noGames
         }
+    }
+
+    func genericErrorAlert(isPresented: Binding<Bool>) -> some View {
+        alert(isPresented: isPresented) {
+            Alert.genericError
+        }
+    }
+}
+
+extension Alert {
+    static var genericError: Alert {
+        Alert(
+            title: Text("Oops"),
+            message: Text("Something went wrong, try it again latter."),
+            dismissButton: .default(Text("OK"))
+        )
+    }
+
+    static var noGames: Alert {
+        Alert(
+            title: Text("Oops"),
+            message: Text("No games available, try again later or create a new game."),
+            dismissButton: .default(Text("OK"))
+        )
     }
 }

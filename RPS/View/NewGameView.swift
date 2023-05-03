@@ -14,10 +14,11 @@ struct NewGameView: View {
         textField
             .navigationDestination(isPresented: $viewModel.isNavigating) {
                 if let game = viewModel.game, let player = viewModel.player {
-                    GameView(viewModel: GameViewModel(game: game, me: player))
+                    GameView(game: game, me: player)
                 }
                 EmptyView()
             }
+            .genericErrorAlert(isPresented: $viewModel.onError)
     }
 
     var textField: some View {
