@@ -6,52 +6,51 @@
 //
 
 import SwiftUI
+import Combine
 
 struct GameView: View {
-
-    @State private var isLoading = true
-    @State var game: Game
-    var player: Player
-
-    init(game: Game, player: Player) {
-        self.game = game
-        self.player = player
-    }
+    @ObservedObject var viewModel: GameViewModel
 
     var body: some View {
         ScrollView {
-            VStack {
-                if isLoading {
-                    ProgressView()
-                        .padding()
-                } else {
-                    PlayerInAGameView(
-                        player1: game.playerOneInGame(myId: player.id),
-                        player2: game.playerTwoInGame(myId: player.id),
-                        game: game)
-                }
+            if viewModel.isLoading {
+                loadingView
+            } else {
+                gameView
             }
         }
         .navigationTitle("Active Game")
         .onAppear {
-            checkingGame()
+            viewModel.checkingGame()
         }
         .refreshable {
-            checkingGame()
+            viewModel.checkingGame()
         }
     }
 
-    func checkingGame() {
-        GameService.sharedInstance.fetchGame(id: game.id) { game, error in
-            guard let game = game else {
-                //TODO: Show error messsage
-                isLoading = false
-                return
-            }
-            self.game = game
-            isLoading = false
-            printlog(game.toJson() ?? "game not converted to json")
+    var loadingView: some View {
+        ProgressView()
+    }
+
+    var gameView: some View {
+        VStack {
+            playerOneView
+            playerTwoView
         }
+    }
+
+    var playerOneView: some View {
+        PlayerInfoView(
+            viewModel: PlayerInfoViewModel(
+                playerInGame: viewModel.playerOne,
+                game: viewModel.game))
+    }
+
+    var playerTwoView: some View {
+        PlayerInfoView(
+            viewModel: PlayerInfoViewModel(
+                playerInGame: viewModel.playerTwo,
+                game: viewModel.game))
     }
 
 }
@@ -60,6 +59,7 @@ struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         let player = Player(id: "id", name: "Carlos")
         let game = Game(id: "id", player1: player, player2: nil, finishedRounds: [])
-        GameView(game: game, player: player)
+        let viewModel = GameViewModel(game: game, me: player)
+        GameView(viewModel: viewModel)
     }
 }

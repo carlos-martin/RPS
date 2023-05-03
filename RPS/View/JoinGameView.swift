@@ -19,8 +19,7 @@ struct JoinGameView: View {
         TextFieldBasedView(title: "Join a Game", submit: submit, isLoading: $isLoading, playerName: $name)
             .navigationDestination(isPresented: $isNavigating) {
                 if let game = game, let player = player {
-                    GameView(game: game, player: player)
-                    EmptyView()
+                    GameView(viewModel: GameViewModel(game: game, me: player))
                 }
                 EmptyView()
             }
