@@ -8,8 +8,8 @@
 import Foundation
 
 enum PlayerNumber {
-    case one(Player?)
-    case two(Player?)
+    case one(Player?=nil)
+    case two(Player?=nil)
 
     var description: String {
         switch self {

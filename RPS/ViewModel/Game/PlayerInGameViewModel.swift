@@ -8,9 +8,17 @@
 import Combine
 import SwiftUI
 
+extension String {
+    struct Game {
+        static var noMovement: String = "No movement"
+        static var waitingForYou: String = "Waiting for you"
+    }
+}
+
 class PlayerInGameViewModel: ObservableObject {
     var playerInGame: PlayerInGame
     var game: Game
+    var currentRoundId: String?
 
     var title: String {
         playerInGame.number.description
@@ -18,13 +26,27 @@ class PlayerInGameViewModel: ObservableObject {
     var playerName: String {
         playerInGame.number.name
     }
+
     var move: String {
-        playerInGame.currentMove?.description ?? "No movement"
+        if playerInGame.isItMe {
+            guard let activeRoundId = game.activeRoundId,
+                  let myMove = game.playerMoveIn(round: activeRoundId, player: playerInGame.number) else {
+                return .Game.noMovement
+            }
+            return myMove.description
+        } else {
+            guard let activeRoundId = game.activeRoundId,
+                  let _ = game.playerMoveIn(round: activeRoundId, player: playerInGame.number) else {
+                return .Game.noMovement
+            }
+            return .Game.waitingForYou
+        }
     }
 
     @Published var selection: String
     @Published var isDisable: Bool
     @Published var isLoading: Bool
+    @Published var doIMoved: Bool
 
     private var bag: Set<AnyCancellable>
 
@@ -34,6 +56,7 @@ class PlayerInGameViewModel: ObservableObject {
         self.selection = ""
         self.isDisable = false
         self.isLoading = false
+        self.doIMoved = game.playerMovedInCurrentRound(playerInGame.number)
         self.bag = Set<AnyCancellable>()
     }
 
@@ -57,10 +80,18 @@ class PlayerInGameViewModel: ObservableObject {
 
             guard let round = round else {
                 printlog(String(describing: error))
-                self?.isDisable = false
+                DispatchQueue.main.async {
+                    self?.isDisable = false
+                }
                 return
             }
-            printlog(round.toJson() ?? "error encoding to json")
+            self?.currentRoundId = round.id
+            self?.game.currentRound = round
+            printlog("round: " + (round.toJson() ?? "error encoding to json"))
+
+            DispatchQueue.main.async {
+                self?.doIMoved = true
+            }
         }
     }
 }
