@@ -18,7 +18,7 @@ struct GameSummaryView: View {
                 resolutionView
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(!viewModel.gameOver)
         .onAppear {
             viewModel.checkingGame()
         }
@@ -48,8 +48,8 @@ struct GameSummaryView: View {
     func resolutionViewFor(name: String, move: String, winner: Bool) -> some View {
         VStack(alignment: .center) {
             HStack {
-                Text(winner ? String.Game.Summary.winner : String.Game.Summary.loser)
-                    .font(.title)
+                let message = viewModel.isATie ? String.Game.Summary.tie : (winner ? String.Game.Summary.winner : String.Game.Summary.loser)
+                Text(message).font(.title)
                 Spacer()
             }
             HStack {

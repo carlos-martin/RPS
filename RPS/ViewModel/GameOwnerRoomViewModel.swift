@@ -13,7 +13,6 @@ class GameOwnerRoomViewModel: ObservableObject {
     @Published var mySelection: String
     @Published var doIMoved: Bool
     @Published var isLoading: Bool
-    @Published var submitIsDisable: Bool
     @Published var roundId: String
 
     var me: Player
@@ -29,12 +28,10 @@ class GameOwnerRoomViewModel: ObservableObject {
         self.mySelection = ""
         self.doIMoved = false
         self.isLoading = false
-        self.submitIsDisable = false
         self.roundId = ""
     }
 
     func sendMyMove() {
-        submitIsDisable = true
         isLoading = true
 
         let move = Move(player: me, move: MoveOption(description: mySelection))
@@ -50,7 +47,6 @@ class GameOwnerRoomViewModel: ObservableObject {
     private func onError(_ error: Error?) {
         printlog(String(describing: error))
         DispatchQueue.main.async {
-            self.submitIsDisable = false
             self.isLoading = false
         }
     }

@@ -65,7 +65,7 @@ struct GameOwnerRoomView: View {
     }
 
     var submitButtonView: some View {
-        SubmitButton(disable: $viewModel.submitIsDisable, action: viewModel.sendMyMove)
+        SubmitButton(disable: .constant(false), action: viewModel.sendMyMove)
     }
 }
 

@@ -24,6 +24,7 @@ extension String {
             }
             static var winner: String = "Winner!! 🏆"
             static var loser: String = "Loser!! 💩"
+            static var tie: String = "Tie!! 🤝"
         }
     }
 
