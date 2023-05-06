@@ -7,25 +7,25 @@
 
 import Foundation
 
-enum PlayerNumber {
+enum PlayerNumber: Equatable {
     case one(Player?=nil)
     case two(Player?=nil)
 
     var description: String {
         switch self {
         case .one:
-            return "Player 1"
+            return .Player.one
         case .two:
-            return "Player 2"
+            return .Player.two
         }
     }
 
     var name: String {
         switch self {
         case .one(let player):
-            return player?.name ?? "No player"
+            return player?.name ?? .Player.noName
         case .two(let player):
-            return player?.name ?? "No player"
+            return player?.name ?? .Player.noName
         }
     }
 

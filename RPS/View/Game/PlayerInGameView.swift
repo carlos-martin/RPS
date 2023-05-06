@@ -20,11 +20,15 @@ struct PlayerInGameView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            guard !viewModel.playerInGame.isItMe else { return }
+            viewModel.checkingGame()
+        }
     }
 
     var playerTitleView: some View {
         HStack {
-            Text(viewModel.title).font(.title2)
+            Text(viewModel.playerNumber).font(.title2)
             if viewModel.playerInGame.isItMe {
                 Text("(you)").font(.footnote)
             }
@@ -47,7 +51,7 @@ struct PlayerInGameView: View {
                 DropDownView(selection: $viewModel.selection)
                 submitButtonView
             } else {
-                Text(viewModel.move).font(.title)
+                Text(viewModel.playerMove).font(.title)
             }
             if viewModel.isLoading {
                 ProgressView()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MoveOption: String, Codable, JsonConvertable, CustomStringConvertible, CaseIterable {
+enum MoveOption: String, Codable, JsonConvertable, CustomStringConvertible, CaseIterable, Equatable {
     case rock = "ROCK"
     case paper = "PAPER"
     case scissor = "SCISSOR"

@@ -8,7 +8,6 @@
 import Foundation
 
 class GameViewModel: ObservableObject {
-    //@Published var isLoading: Bool
     @Published var onError: Bool
     @Published var playerOne: PlayerInGame
     @Published var playerTwo: PlayerInGame
@@ -49,12 +48,13 @@ class GameViewModel: ObservableObject {
     }
 
     private func onSuccess(_ game: Game) {
-        printlog(game.toJson() ?? "")
-
         DispatchQueue.main.async {
-            self.game = game
-            self.playerOne = game.playerOneInGame(myId: self.myId)
-            self.playerTwo = game.playerTwoInGame(myId: self.myId)
+            if self.game != game {
+                self.game = game
+                self.playerOne = game.playerOneInGame(myId: self.myId)
+                self.playerTwo = game.playerTwoInGame(myId: self.myId)
+                printlog(game.toJson() ?? "")
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Player: Codable, JsonConvertable {
+struct Player: Codable, JsonConvertable, Equatable {
     let id: String
     let name: String
 }

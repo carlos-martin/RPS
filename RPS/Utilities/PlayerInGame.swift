@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct PlayerInGame {
+struct PlayerInGame: Equatable {
     var number: PlayerNumber
     var isItMe: Bool
-    //var currentMove: MoveOption?
-    //var hasMoved: Bool {
-    //    currentMove != nil
-    //}
 }

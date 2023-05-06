@@ -8,45 +8,19 @@
 import Combine
 import SwiftUI
 
-extension String {
-    struct Game {
-        static var noMovement: String = "No movement"
-        static var waitingForYou: String = "Waiting for you"
-    }
-}
-
 class PlayerInGameViewModel: ObservableObject {
     @Published var selection: String
     @Published var isDisable: Bool
     @Published var isLoading: Bool
     @Published var doIMoved: Bool
+    @Published var playerNumber: String
+    @Published var playerName: String
+    @Published var playerMove: String
 
-    var currentRoundId: String?
+    private var currentRoundId: String?
+    private var game: Game
+
     var playerInGame: PlayerInGame
-    var game: Game
-
-    var title: String {
-        playerInGame.number.description
-    }
-    var playerName: String {
-        playerInGame.number.name
-    }
-
-    var move: String {
-        if playerInGame.isItMe {
-            guard let activeRoundId = game.activeRoundId,
-                  let myMove = game.playerMoveIn(round: activeRoundId, player: playerInGame.number) else {
-                return .Game.noMovement
-            }
-            return myMove.description
-        } else {
-            guard let activeRoundId = game.activeRoundId,
-                  let _ = game.playerMoveIn(round: activeRoundId, player: playerInGame.number) else {
-                return .Game.noMovement
-            }
-            return .Game.waitingForYou
-        }
-    }
 
     init(playerInGame: PlayerInGame, game: Game) {
         self.playerInGame = playerInGame
@@ -55,6 +29,9 @@ class PlayerInGameViewModel: ObservableObject {
         self.isDisable = false
         self.isLoading = false
         self.doIMoved = game.playerMovedInCurrentRound(playerInGame.number)
+        self.playerMove = game.move(of: playerInGame)
+        self.playerName = playerInGame.number.name
+        self.playerNumber = playerInGame.number.description
     }
 
     func gameMove() {
@@ -67,32 +44,80 @@ class PlayerInGameViewModel: ObservableObject {
 
         let move = Move(player: player, move: MoveOption(description: selection))
 
-        GameService.sharedInstance.gameMove(to: game, move: move) { [weak self] round, error in
+        GameService.sharedInstance.gameMove(to: game, move: move) { round, error in
             guard let round = round else {
-                self?.onError(error)
+                onError(error)
                 return
             }
-            self?.onSuccess(round)
+            onSuccess(move, in: round)
+        }
+
+        func onSuccess(_ move: Move, in round: Round) {
+            printlog("round: " + (round.toJson() ?? "error encoding to json"))
+
+            currentRoundId = round.id
+            game.currentRound = round
+
+            DispatchQueue.main.async {
+                self.doIMoved = true
+                self.isLoading = false
+            }
+        }
+
+        func onError(_ error: Error?) {
+            printlog(String(describing: error))
+            DispatchQueue.main.async {
+                self.isDisable = false
+                self.isLoading = false
+            }
         }
     }
 
-    private func onError(_ error: Error?) {
-        printlog(String(describing: error))
-        DispatchQueue.main.async {
-            self.isDisable = false
-            self.isLoading = false
+    func checkingGame() {
+        GameService.sharedInstance
+            .fetchGame(id: game.id) { [weak self] game, error in
+                guard let self = self, let game = game else {
+                    onError(error)
+                    return
+                }
+                onSuccess(game)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.checkingGame()
+                }
+            }
+
+        func onSuccess(_ game: Game) {
+            guard self.game != game else {
+                return
+            }
+            self.game = game
+            updatePlayerName(playerInGame, in: game)
+            updatePlayerMove(playerInGame, in: game)
+        }
+
+        func onError(_ error: Error?) {
+            printlog(String(describing: error))
         }
     }
 
-    private func onSuccess(_ round: Round) {
-        printlog("round: " + (round.toJson() ?? "error encoding to json"))
-
-        currentRoundId = round.id
-        game.currentRound = round
-
+    private func updatePlayerName(_ playerInGame: PlayerInGame, in game: Game) {
         DispatchQueue.main.async {
-            self.doIMoved = true
-            self.isLoading = false
+            self.playerName = game.playerName(of: playerInGame.number)
+            printlog(self.playerName)
+        }
+    }
+
+    private func updatePlayerMove(_ playerInGame: PlayerInGame, in: Game, at roundId: String?=nil) {
+        var move: String
+        if let roundId = roundId {
+            move = game.move(of: playerInGame, in: roundId)
+        } else {
+            move = game.move(of: playerInGame)
+        }
+        DispatchQueue.main.async {
+            self.playerMove = move
+            printlog(self.playerMove)
         }
     }
 }
