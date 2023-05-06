@@ -11,7 +11,7 @@ struct GameRoomView: View {
     @ObservedObject var viewModel: GameRoomViewModel
 
     var body: some View {
-        HStack{
+        HStack {
             VStack(alignment: .leading, spacing: 0) {
                 titleView
                 infoView
@@ -20,14 +20,19 @@ struct GameRoomView: View {
             Spacer()
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $viewModel.doIMoved) {
-            GameSummaryView()
+            GameSummaryView(viewModel: GameSummaryViewMode(
+                game: viewModel.game,
+                me: viewModel.me,
+                myNumber: viewModel.myNumber,
+                roundId: viewModel.roundId))
         }
 
     }
 
     var titleView: some View {
-        Text(viewModel.myNumber).font(.title2)
+        Text(viewModel.myNumberLabel).font(.title2)
     }
 
     var infoView: some View {

@@ -8,7 +8,7 @@
 import Foundation
 
 class GameRoomViewModel: ObservableObject {
-    @Published var myNumber: String
+    @Published var myNumberLabel: String
     @Published var myName: String
     @Published var mySelection: String
     @Published var doIMoved: Bool
@@ -17,12 +17,14 @@ class GameRoomViewModel: ObservableObject {
     @Published var roundId: String
 
     var me: Player
+    var myNumber: GamePlayerNumber
     var game: Game
 
     init(me: Player, game: Game) {
         self.me = me
         self.game = game
         self.myNumber = game.playerNumber(me)
+        self.myNumberLabel = myNumber.description
         self.myName = me.name
         self.mySelection = ""
         self.doIMoved = false

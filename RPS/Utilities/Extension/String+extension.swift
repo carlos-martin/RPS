@@ -16,6 +16,13 @@ extension String {
         static var activeGame: String = "Active Game"
         static var noMovement: String = "No movement"
         static var waitingForYou: String = "Waiting for you"
+
+        struct Summary {
+            static var waitingForOpponent: String = "Waiting for an opponent"
+            static func waitingForAMove(of name: String) -> String {
+                "Waiting for \(name) to move"
+            }
+        }
     }
 
     struct Player {

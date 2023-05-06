@@ -18,14 +18,22 @@ struct Game: Codable, JsonConvertable, Equatable {
         player1 == nil || player2 == nil
     }
 
-    func playerNumber(_ player: Player) -> String {
-        if player1 == player {
-            return String.Player.one
-        } else if player2 == player {
-            return String.Player.two
-        } else {
-            return String.Player.noName
+    func playerNumber(_ player: Player) -> GamePlayerNumber {
+        player1 == player ? .one : .two
+    }
+
+    func isTheRoundFinished(_ roundId: String) -> Bool {
+        guard currentRound?.id != roundId else {
+            return false
         }
+        let round = finishedRounds.first { round in
+            round.id == roundId
+        }
+        return round != nil
+    }
+
+    func getTheOpponent(_ player: Player) -> Player? {
+        player1 == player ? player2 : player1
     }
 
     func playerOneInGame(myId: String) -> PlayerInGame {
