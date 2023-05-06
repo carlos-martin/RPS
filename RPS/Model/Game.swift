@@ -62,99 +62,11 @@ struct Game: Codable, JsonConvertable, Equatable {
             return player == player2
         }
     }
-
-    func playerOneInGame(myId: String) -> PlayerInGame {
-        PlayerInGame(
-            number: .one(player1),
-            isItMe: (player1?.id ?? "") == myId)
-    }
-
-    func playerTwoInGame(myId: String) -> PlayerInGame {
-        PlayerInGame(
-            number: .two(player2),
-            isItMe: (player2?.id ?? "") == myId)
-    }
-
-    func isWaitingFor(player: PlayerNumber) -> Bool {
-        guard let activeRoundId = activeRoundId else {
-            return false
-        }
-        switch player {
-        case .one:
-            return hasPlayerMovedIn(round: activeRoundId, player: .two())
-        case .two:
-            return hasPlayerMovedIn(round: activeRoundId, player: .one())
-        }
-    }
-
-    func playerMovedInCurrentRound(_ player: PlayerNumber) -> Bool {
-        guard let activeRoundId = activeRoundId else {
-            printlog("Player \(player.description) has not moved (there is not active round)")
-            return false
-        }
-        let moved = playerMoveIn(round: activeRoundId, player: player) != nil
-        printlog("Player \(player.description) has \(moved ? "" : "not ")moved")
-        return moved
-    }
-
-    func move(of playerInGame: PlayerInGame, in roundId: String) -> String {
-        if playerInGame.isItMe {
-            guard let myMove = playerMoveIn(round: roundId, player: playerInGame.number) else {
-                return .Game.noMovement
-            }
-            return myMove.description
-        } else {
-            guard let _ = playerMoveIn(round: roundId, player: playerInGame.number) else {
-                return .Game.noMovement
-            }
-            return .Game.waitingForYou
-        }
-    }
-
-    func move(of playerInGame: PlayerInGame) -> String {
-        guard let activeRoundId = activeRoundId else {
-            return .Game.noMovement
-        }
-        return move(of: playerInGame, in: activeRoundId)
-    }
-
-    func playerName(of playerNumber: PlayerNumber) -> String {
-        switch playerNumber {
-        case .one:
-            return player1?.name ?? .Player.noName
-        case .two:
-            return player2?.name ?? .Player.noName
-        }
-    }
-
-    func isPlayerOne(_ playerInGame: PlayerInGame) -> Bool {
-        playerInGame.number.player == player1
-    }
-
-    func isPlayerTwo(_ playerInGame: PlayerInGame) -> Bool {
-        playerInGame.number.player == player2
-    }
 }
 
 private extension Game {
     var activeRoundId: String? {
         currentRound?.id
-    }
-
-    func playerMoveIn(round id: String, player: PlayerNumber) -> MoveOption? {
-        guard let round = fetchRoundBy(id: id) else {
-            return nil
-        }
-        switch player {
-        case .one:
-            return round.player1Move
-        case .two:
-            return round.player2Move
-        }
-    }
-
-    func hasPlayerMovedIn(round id: String, player: PlayerNumber) -> Bool {
-        playerMoveIn(round: id, player: player) != nil
     }
 
     func fetchRoundBy(id: String) -> Round? {
