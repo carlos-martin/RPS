@@ -20,7 +20,7 @@ class GameSummaryViewMode: ObservableObject {
     private var opponent: Player?
     private var myNumber: GamePlayerNumber
     private var roundId: String
-
+    private var gameOver: Bool
 
     init(game: Game, me: Player, myNumber: GamePlayerNumber, roundId: String) {
         self.game = game
@@ -34,6 +34,7 @@ class GameSummaryViewMode: ObservableObject {
         self.myMove = game.playerMove(me, roundId: roundId)
         self.opponentName = ""
         self.opponentMove = ""
+        self.gameOver = false
     }
 
     func checkingGame() {
@@ -45,8 +46,10 @@ class GameSummaryViewMode: ObservableObject {
                 }
                 onSuccess(game)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.checkingGame()
+                if !gameOver {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.checkingGame()
+                    }
                 }
             }
 
@@ -60,10 +63,9 @@ class GameSummaryViewMode: ObservableObject {
                         self.opponent = opponent
                         self.opponentName = opponent.name
                         self.opponentMove = game.playerMove(opponent, roundId: self.roundId)
+                        self.gameOver = true
                     }
                 }
-
-
             }
         }
 
