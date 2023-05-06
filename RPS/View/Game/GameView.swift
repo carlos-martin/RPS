@@ -16,7 +16,7 @@ struct GameView: View {
             gameView
         }
         .navigationTitle("Active Game")
-        .refreshable {
+        .onAppear {
             viewModel.checkingGame()
         }
         .genericErrorAlert(isPresented: $viewModel.onError)

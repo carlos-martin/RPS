@@ -8,7 +8,7 @@
 import Foundation
 
 class GameViewModel: ObservableObject {
-    @Published var isLoading: Bool
+    //@Published var isLoading: Bool
     @Published var onError: Bool
     @Published var playerOne: PlayerInGame
     @Published var playerTwo: PlayerInGame
@@ -18,7 +18,6 @@ class GameViewModel: ObservableObject {
     private var firstTime: Bool
 
     init(game: Game, me: Player) {
-        self.isLoading = false
         self.onError = false
         self.game = game
         self.playerOne = game.playerOneInGame(myId: me.id)
@@ -28,7 +27,6 @@ class GameViewModel: ObservableObject {
     }
 
     func checkingGame() {
-        isLoading = true
         GameService.sharedInstance
             .fetchGame(id: game.id) { [weak self] game, error in
                 guard let self = self, let game = game else {
@@ -36,6 +34,10 @@ class GameViewModel: ObservableObject {
                     return
                 }
                 onSuccess(game)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.checkingGame()
+                }
             }
     }
 
@@ -43,7 +45,6 @@ class GameViewModel: ObservableObject {
         printlog(String(describing: error))
         DispatchQueue.main.async {
             self.onError = true
-            self.isLoading = false
         }
     }
 
@@ -54,7 +55,6 @@ class GameViewModel: ObservableObject {
             self.game = game
             self.playerOne = game.playerOneInGame(myId: self.myId)
             self.playerTwo = game.playerTwoInGame(myId: self.myId)
-            self.isLoading = false
         }
     }
 }
