@@ -1,0 +1,63 @@
+//
+//  GameRoomViewModel.swift
+//  RPS
+//
+//  Created by Carlos Martin on 2023-05-06.
+//
+
+import Foundation
+
+class GameRoomViewModel: ObservableObject {
+    @Published var myNumber: String
+    @Published var myName: String
+    @Published var mySelection: String
+    @Published var doIMoved: Bool
+    @Published var isLoading: Bool
+    @Published var submitIsDisable: Bool
+    @Published var roundId: String
+
+    var me: Player
+    var game: Game
+
+    init(me: Player, game: Game) {
+        self.me = me
+        self.game = game
+        self.myNumber = game.playerNumber(me)
+        self.myName = me.name
+        self.mySelection = ""
+        self.doIMoved = false
+        self.isLoading = false
+        self.submitIsDisable = false
+        self.roundId = ""
+    }
+
+    func sendMyMove() {
+        submitIsDisable = true
+        isLoading = true
+
+        let move = Move(player: me, move: MoveOption(description: mySelection))
+        GameService.sharedInstance.gameMove(to: game, move: move) { [weak self] round, error in
+            guard let round = round else {
+                self?.onError(error)
+                return
+            }
+            self?.onSuccess(move, in: round)
+        }
+    }
+
+    private func onError(_ error: Error?) {
+        printlog(String(describing: error))
+        DispatchQueue.main.async {
+            self.submitIsDisable = false
+            self.isLoading = false
+        }
+    }
+
+    private func onSuccess(_ move: Move, in round: Round) {
+        DispatchQueue.main.async {
+            self.roundId = round.id
+            self.isLoading = false
+            self.doIMoved = true
+        }
+    }
+}

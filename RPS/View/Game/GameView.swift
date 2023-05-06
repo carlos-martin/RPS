@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+@available(*, deprecated)
 struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
 

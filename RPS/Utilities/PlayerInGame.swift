@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(*, deprecated)
 struct PlayerInGame: Equatable, CustomStringConvertible {
     var number: PlayerNumber
     var isItMe: Bool
