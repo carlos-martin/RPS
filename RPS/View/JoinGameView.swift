@@ -13,8 +13,8 @@ struct JoinGameView: View {
     var body: some View {
         textField
             .navigationDestination(isPresented: $viewModel.isNavigating) {
-                if let game = viewModel.game, let player = viewModel.player {
-                    GameView(viewModel: GameViewModel(game: game, me: player))
+                if let game = viewModel.game, let me = viewModel.player {
+                    GameRoomView(viewModel: GameRoomViewModel(me: me, game: game))
                 }
                 EmptyView()
             }

@@ -1,5 +1,5 @@
 //
-//  GameOwnerRoomViewModel.swift
+//  GameRoomViewModel.swift
 //  RPS
 //
 //  Created by Carlos Martin on 2023-05-06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GameOwnerRoomViewModel: ObservableObject {
+class GameRoomViewModel: ObservableObject {
     @Published var myNumberLabel: String
     @Published var myName: String
     @Published var mySelection: String

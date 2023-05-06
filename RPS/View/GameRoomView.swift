@@ -1,5 +1,5 @@
 //
-//  GameRoom.swift
+//  GameRoomView.swift
 //  RPS
 //
 //  Created by Carlos Martin on 2023-05-06.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct GameOwnerRoomView: View {
-    @ObservedObject var viewModel: GameOwnerRoomViewModel
+struct GameRoomView: View {
+    @ObservedObject var viewModel: GameRoomViewModel
 
     var body: some View {
         HStack {
@@ -20,6 +20,7 @@ struct GameOwnerRoomView: View {
             Spacer()
         }
         .padding()
+        .navigationTitle(String.Game.activeGame)
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $viewModel.doIMoved) {
             GameSummaryView(viewModel: GameSummaryViewMode(

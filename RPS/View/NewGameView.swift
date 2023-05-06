@@ -14,7 +14,7 @@ struct NewGameView: View {
         textField
             .navigationDestination(isPresented: $viewModel.isNavigating) {
                 if let game = viewModel.game, let me = viewModel.player {
-                    GameOwnerRoomView(viewModel: GameOwnerRoomViewModel(me: me, game: game))
+                    GameRoomView(viewModel: GameRoomViewModel(me: me, game: game))
                 }
                 EmptyView()
             }
