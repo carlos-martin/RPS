@@ -16,9 +16,14 @@ extension String {
 }
 
 class PlayerInGameViewModel: ObservableObject {
+    @Published var selection: String
+    @Published var isDisable: Bool
+    @Published var isLoading: Bool
+    @Published var doIMoved: Bool
+
+    var currentRoundId: String?
     var playerInGame: PlayerInGame
     var game: Game
-    var currentRoundId: String?
 
     var title: String {
         playerInGame.number.description
@@ -43,13 +48,6 @@ class PlayerInGameViewModel: ObservableObject {
         }
     }
 
-    @Published var selection: String
-    @Published var isDisable: Bool
-    @Published var isLoading: Bool
-    @Published var doIMoved: Bool
-
-    private var bag: Set<AnyCancellable>
-
     init(playerInGame: PlayerInGame, game: Game) {
         self.playerInGame = playerInGame
         self.game = game
@@ -57,41 +55,44 @@ class PlayerInGameViewModel: ObservableObject {
         self.isDisable = false
         self.isLoading = false
         self.doIMoved = game.playerMovedInCurrentRound(playerInGame.number)
-        self.bag = Set<AnyCancellable>()
-    }
-
-    deinit {
-        bag.removeAll()
     }
 
     func gameMove() {
-        isDisable = true
-        isLoading = true
         guard let player = playerInGame.number.player else {
-            isDisable = false
-            isLoading = false
             return
         }
-        let move = Move(player: player, move: MoveOption(description: selection))
-        GameService.sharedInstance.gameMove(to: game, move: move) { [weak self] round, error in
-            DispatchQueue.main.async {
-                self?.isLoading = false
-            }
 
+        isDisable = true
+        isLoading = true
+
+        let move = Move(player: player, move: MoveOption(description: selection))
+
+        GameService.sharedInstance.gameMove(to: game, move: move) { [weak self] round, error in
             guard let round = round else {
-                printlog(String(describing: error))
-                DispatchQueue.main.async {
-                    self?.isDisable = false
-                }
+                self?.onError(error)
                 return
             }
-            self?.currentRoundId = round.id
-            self?.game.currentRound = round
-            printlog("round: " + (round.toJson() ?? "error encoding to json"))
+            self?.onSuccess(round)
+        }
+    }
 
-            DispatchQueue.main.async {
-                self?.doIMoved = true
-            }
+    private func onError(_ error: Error?) {
+        printlog(String(describing: error))
+        DispatchQueue.main.async {
+            self.isDisable = false
+            self.isLoading = false
+        }
+    }
+
+    private func onSuccess(_ round: Round) {
+        printlog("round: " + (round.toJson() ?? "error encoding to json"))
+
+        currentRoundId = round.id
+        game.currentRound = round
+
+        DispatchQueue.main.async {
+            self.doIMoved = true
+            self.isLoading = false
         }
     }
 }

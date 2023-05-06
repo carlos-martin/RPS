@@ -67,6 +67,7 @@
 		1AADE58F2A02876A003495C6 /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AADE58E2A02876A003495C6 /* NewGameViewModel.swift */; };
 		1AADE5912A02D149003495C6 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AADE5902A02D149003495C6 /* View+extension.swift */; };
 		1AADE5932A02D267003495C6 /* Binding+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AADE5922A02D267003495C6 /* Binding+extension.swift */; };
+		1ADE94CD2A067EB8000901DB /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE94CC2A067EB8000901DB /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		1AADE58E2A02876A003495C6 /* NewGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
 		1AADE5902A02D149003495C6 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		1AADE5922A02D267003495C6 /* Binding+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+extension.swift"; sourceTree = "<group>"; };
+		1ADE94CC2A067EB8000901DB /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				1AADE5842A02775C003495C6 /* PlayerInGameViewModel.swift */,
+				1ADE94CC2A067EB8000901DB /* GameViewModel.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				1A12150829FAA2CE0083F147 /* SubmitButton.swift in Sources */,
 				1A69F09329F80FD9001908DA /* ServiceRequest.swift in Sources */,
 				1A69F08E29F80D79001908DA /* Move.swift in Sources */,
+				1ADE94CD2A067EB8000901DB /* GameViewModel.swift in Sources */,
 				1A12151129FBC3640083F147 /* PlayerInGame.swift in Sources */,
 				1A12150429F9AF9E0083F147 /* GameView.swift in Sources */,
 				1A88D98F29F91754002AEB45 /* AddPlayerQuery.swift in Sources */,

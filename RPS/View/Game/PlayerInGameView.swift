@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-//TODO: I need to propagate back when the user has moved
-
 struct PlayerInGameView: View {
     @ObservedObject var viewModel: PlayerInGameViewModel
 
