@@ -37,7 +37,7 @@ struct PlayerInGameView: View {
 
     var playerInfoView: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image.Game.icon
+            Image.Player.icon
             Text(viewModel.playerName).font(.title)
         }
     }
