@@ -18,7 +18,7 @@ struct TextFieldBasedView: View {
             PlayerTextFiel(name: $playerName)
 
             Button(action: submit) {
-                Text("Submit")
+                Text(String.Button.submit)
             }
             .padding()
             .disabled(playerName.isEmpty || isLoading)

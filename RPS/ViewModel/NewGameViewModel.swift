@@ -16,8 +16,6 @@ class NewGameViewModel: ObservableObject {
     @Published var game: Game?
     @Published var player: Player?
 
-    private var bag: Set<AnyCancellable>
-
     init(game: Game? = nil, player: Player? = nil) {
         self.myName = ""
         self.isLoading = false
@@ -25,11 +23,6 @@ class NewGameViewModel: ObservableObject {
         self.onError = false
         self.game = game
         self.player = player
-        self.bag = Set<AnyCancellable>()
-    }
-
-    deinit {
-        bag.removeAll()
     }
 
     func submit() {

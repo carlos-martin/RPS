@@ -12,17 +12,12 @@ struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
 
     var body: some View {
-        ScrollView {
-            gameView
-        }
-        .navigationTitle("Active Game")
-        .refreshable {
-            viewModel.checkingGame()
-        }
-        .genericErrorAlert(isPresented: $viewModel.onError)
+        gameView(viewModel.game)
+            .navigationTitle(String.Game.activeGame)
+            .genericErrorAlert(isPresented: $viewModel.onError)
     }
 
-    var gameView: some View {
+    func gameView(_ game: Game) -> some View {
         VStack {
             PlayerInGameView(
                 viewModel: PlayerInGameViewModel(

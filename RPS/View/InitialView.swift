@@ -16,13 +16,13 @@ struct InitialView: View {
                 NavigationLink {
                     NewGameView(viewModel: NewGameViewModel())
                 } label: {
-                    DroppedShadowLabel(title: "New Game")
+                    DroppedShadowLabel(title: String.Onboard.newGame)
                 }
 
                 NavigationLink {
                     JoinGameView(viewModel: JoinGameViewModel())
                 } label: {
-                    DroppedShadowLabel(title: "Join a Game")
+                    DroppedShadowLabel(title: String.Onboard.joinGame)
                 }
 
                 Spacer()

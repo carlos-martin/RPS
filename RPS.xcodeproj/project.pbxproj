@@ -68,6 +68,8 @@
 		1AADE5912A02D149003495C6 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AADE5902A02D149003495C6 /* View+extension.swift */; };
 		1AADE5932A02D267003495C6 /* Binding+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AADE5922A02D267003495C6 /* Binding+extension.swift */; };
 		1ADE94CD2A067EB8000901DB /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE94CC2A067EB8000901DB /* GameViewModel.swift */; };
+		1ADE94CF2A06ABF9000901DB /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE94CE2A06ABF9000901DB /* String+extension.swift */; };
+		1ADE94D12A06BAE2000901DB /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE94D02A06BAE2000901DB /* Image+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +142,8 @@
 		1AADE5902A02D149003495C6 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		1AADE5922A02D267003495C6 /* Binding+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+extension.swift"; sourceTree = "<group>"; };
 		1ADE94CC2A067EB8000901DB /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		1ADE94CE2A06ABF9000901DB /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		1ADE94D02A06BAE2000901DB /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +210,8 @@
 				1A1214FD29F9AA8B0083F147 /* Text+extension.swift */,
 				1AADE5902A02D149003495C6 /* View+extension.swift */,
 				1AADE5922A02D267003495C6 /* Binding+extension.swift */,
+				1ADE94CE2A06ABF9000901DB /* String+extension.swift */,
+				1ADE94D02A06BAE2000901DB /* Image+extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 				1A88D99129F91778002AEB45 /* GameMoveQuery.swift in Sources */,
 				1AADE5912A02D149003495C6 /* View+extension.swift in Sources */,
 				1A12150E29FBA8110083F147 /* PlayerInGameView.swift in Sources */,
+				1ADE94D12A06BAE2000901DB /* Image+extension.swift in Sources */,
 				1A1214FB29F9A9B60083F147 /* DroppedShadowLabel.swift in Sources */,
 				1A8D6AF729F6EE880000AADC /* ContentView.swift in Sources */,
 				1A686A0F29F6EF290091FB24 /* Game.swift in Sources */,
@@ -541,6 +548,7 @@
 				1A12151129FBC3640083F147 /* PlayerInGame.swift in Sources */,
 				1A12150429F9AF9E0083F147 /* GameView.swift in Sources */,
 				1A88D98F29F91754002AEB45 /* AddPlayerQuery.swift in Sources */,
+				1ADE94CF2A06ABF9000901DB /* String+extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

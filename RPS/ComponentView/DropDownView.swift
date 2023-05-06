@@ -21,7 +21,7 @@ struct DropDownView: View {
                 }
             }
         } label: {
-            Image(systemName: "chevron.up.chevron.down")
+            Image.DropDown.icon
         }
 
     }

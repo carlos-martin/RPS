@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct PlayerInGame {
+struct PlayerInGame: Equatable, CustomStringConvertible {
     var number: PlayerNumber
     var isItMe: Bool
-    //var currentMove: MoveOption?
-    //var hasMoved: Bool {
-    //    currentMove != nil
-    //}
+
+    var description: String {
+        "\(number.description); It is \(isItMe ? "" : "not ")me"
+    }
 }

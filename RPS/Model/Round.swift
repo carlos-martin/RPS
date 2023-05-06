@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Round: Codable, JsonConvertable {
+struct Round: Codable, JsonConvertable, Equatable {
     let id: String
     var player1Move: MoveOption?
     var player2Move: MoveOption?

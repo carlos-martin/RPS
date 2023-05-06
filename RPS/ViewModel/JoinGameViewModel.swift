@@ -40,12 +40,6 @@ class JoinGameViewModel: ObservableObject {
         bag.removeAll()
     }
 
-    private func setError(with error: ErrorType) {
-        self.isLoading = false
-        self.onError = true
-        self.errorType = error
-    }
-
     func submit() {
         isLoading = true
 
@@ -53,28 +47,44 @@ class JoinGameViewModel: ObservableObject {
             let game = games.first { game in
                 game.hasAvailablePlace()
             }
+
             guard let self = self, let game = game else {
-                DispatchQueue.main.async {
-                    self?.setError(with: .noGame)
-                }
+                self?.onError(error, of: .noGame)
                 return
             }
+
             GameService.sharedInstance.addPlayer(to: game, name: self.myName) { player, error in
                 guard let player = player else {
-                    DispatchQueue.main.async {
-                        self.setError(with: .generic)
-                    }
+                    self.onError(error, of: .generic)
                     return
                 }
 
-                DispatchQueue.main.async {
-                    self.game = game
-                    self.player = player
-                    self.isLoading = false
-                    self.isNavigating = true
+                GameService.sharedInstance.fetchGame(id: game.id) { updatedGame, error in
+                    guard let updatedGame = updatedGame else {
+                        self.onError(error, of: .generic)
+                        return
+                    }
+                    self.onSuccess(game: updatedGame, player: player)
                 }
-
             }
+        }
+    }
+
+    private func onError(_ error: Error?, of type: ErrorType) {
+        printlog(String(describing: error))
+        DispatchQueue.main.async {
+            self.isLoading = false
+            self.onError = true
+            self.errorType = type
+        }
+    }
+
+    private func onSuccess(game: Game, player: Player) {
+        DispatchQueue.main.async {
+            self.game = game
+            self.player = player
+            self.isLoading = false
+            self.isNavigating = true
         }
     }
 }

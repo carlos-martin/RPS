@@ -20,39 +20,51 @@ struct PlayerInGameView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            guard !viewModel.playerInGame.isItMe else { return }
+            viewModel.checkingGame()
+        }
     }
 
     var playerTitleView: some View {
         HStack {
-            Text(viewModel.title).font(.title2)
+            Text(viewModel.playerNumber).font(.title2)
             if viewModel.playerInGame.isItMe {
-                Text("(you)").font(.footnote)
+                Text(String.Player.you).font(.footnote)
             }
         }
     }
 
     var playerInfoView: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image(systemName: "person")
+            Image.Game.icon
             Text(viewModel.playerName).font(.title)
         }
     }
 
     var playerMoveView: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image(systemName: "hand.raised")
+            Image.Game.icon
             if viewModel.playerInGame.isItMe && !viewModel.doIMoved {
-                let text = viewModel.selection.isEmpty ? .Game.noMovement : viewModel.selection.description
-                Text(text).font(.title)
-                DropDownView(selection: $viewModel.selection)
+                myMoveView
+                dropDownView
                 submitButtonView
             } else {
-                Text(viewModel.move).font(.title)
+                Text(viewModel.playerMove).font(.title)
             }
             if viewModel.isLoading {
                 ProgressView()
             }
         }
+    }
+
+    var myMoveView: some View {
+        let move = viewModel.selection.isEmpty ? .Game.noMovement : viewModel.selection.description
+        return Text(move).font(.title)
+    }
+
+    var dropDownView: some View {
+        DropDownView(selection: $viewModel.selection)
     }
 
     var submitButtonView: some View {

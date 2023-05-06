@@ -12,10 +12,10 @@ struct PlayerTextFiel: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Player name").font(.title2)
+            Text(String.TextField.title).font(.title2)
             HStack {
-                Image(systemName: "person")
-                TextField("Enter your name", text: $name)
+                Image.Player.icon
+                TextField(String.TextField.placeholder, text: $name)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
         }

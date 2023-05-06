@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Game: Codable, JsonConvertable {
+struct Game: Codable, JsonConvertable, Equatable {
     let id: String
     let player1: Player?
     let player2: Player?
@@ -30,10 +30,6 @@ struct Game: Codable, JsonConvertable {
             isItMe: (player2?.id ?? "") == myId)
     }
 
-    var activeRoundId: String? {
-        currentRound?.id
-    }
-
     func isWaitingFor(player: PlayerNumber) -> Bool {
         guard let activeRoundId = activeRoundId else {
             return false
@@ -48,9 +44,56 @@ struct Game: Codable, JsonConvertable {
 
     func playerMovedInCurrentRound(_ player: PlayerNumber) -> Bool {
         guard let activeRoundId = activeRoundId else {
+            printlog("Player \(player.description) has not moved (there is not active round)")
             return false
         }
-        return playerMoveIn(round: activeRoundId, player: player) != nil
+        let moved = playerMoveIn(round: activeRoundId, player: player) != nil
+        printlog("Player \(player.description) has \(moved ? "" : "not ")moved")
+        return moved
+    }
+
+    func move(of playerInGame: PlayerInGame, in roundId: String) -> String {
+        if playerInGame.isItMe {
+            guard let myMove = playerMoveIn(round: roundId, player: playerInGame.number) else {
+                return .Game.noMovement
+            }
+            return myMove.description
+        } else {
+            guard let _ = playerMoveIn(round: roundId, player: playerInGame.number) else {
+                return .Game.noMovement
+            }
+            return .Game.waitingForYou
+        }
+    }
+
+    func move(of playerInGame: PlayerInGame) -> String {
+        guard let activeRoundId = activeRoundId else {
+            return .Game.noMovement
+        }
+        return move(of: playerInGame, in: activeRoundId)
+    }
+
+    func playerName(of playerNumber: PlayerNumber) -> String {
+        switch playerNumber {
+        case .one:
+            return player1?.name ?? .Player.noName
+        case .two:
+            return player2?.name ?? .Player.noName
+        }
+    }
+
+    func isPlayerOne(_ playerInGame: PlayerInGame) -> Bool {
+        playerInGame.number.player == player1
+    }
+
+    func isPlayerTwo(_ playerInGame: PlayerInGame) -> Bool {
+        playerInGame.number.player == player2
+    }
+}
+
+private extension Game {
+    var activeRoundId: String? {
+        currentRound?.id
     }
 
     func playerMoveIn(round id: String, player: PlayerNumber) -> MoveOption? {
@@ -64,9 +107,7 @@ struct Game: Codable, JsonConvertable {
             return round.player2Move
         }
     }
-}
 
-private extension Game {
     func hasPlayerMovedIn(round id: String, player: PlayerNumber) -> Bool {
         playerMoveIn(round: id, player: player) != nil
     }

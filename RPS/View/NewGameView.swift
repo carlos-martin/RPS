@@ -23,7 +23,7 @@ struct NewGameView: View {
 
     var textField: some View {
         TextFieldBasedView(
-            title: "New Game",
+            title: String.Onboard.newGame,
             submit: viewModel.submit,
             isLoading: $viewModel.isLoading,
             playerName: $viewModel.myName)
