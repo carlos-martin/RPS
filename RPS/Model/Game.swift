@@ -96,8 +96,6 @@ private extension Game {
         currentRound?.id
     }
 
-
-
     func playerMoveIn(round id: String, player: PlayerNumber) -> MoveOption? {
         guard let round = fetchRoundBy(id: id) else {
             return nil

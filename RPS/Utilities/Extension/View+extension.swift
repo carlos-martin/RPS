@@ -32,17 +32,17 @@ extension View {
 extension Alert {
     static var genericError: Alert {
         Alert(
-            title: Text("Oops"),
-            message: Text("Something went wrong, try it again latter."),
-            dismissButton: .default(Text("OK"))
+            title: Text(String.Alert.Generic.title),
+            message: Text(String.Alert.Generic.message),
+            dismissButton: .default(Text(String.Alert.Generic.button))
         )
     }
 
     static var noGames: Alert {
         Alert(
-            title: Text("Oops"),
-            message: Text("No games available, try again later or create a new game."),
-            dismissButton: .default(Text("OK"))
+            title: Text(String.Alert.NoGames.title),
+            message: Text(String.Alert.NoGames.message),
+            dismissButton: .default(Text(String.Alert.NoGames.button))
         )
     }
 }

@@ -30,21 +30,21 @@ struct PlayerInGameView: View {
         HStack {
             Text(viewModel.playerNumber).font(.title2)
             if viewModel.playerInGame.isItMe {
-                Text("(you)").font(.footnote)
+                Text(String.Player.you).font(.footnote)
             }
         }
     }
 
     var playerInfoView: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image(systemName: "person")
+            Image.Game.icon
             Text(viewModel.playerName).font(.title)
         }
     }
 
     var playerMoveView: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image(systemName: "hand.raised")
+            Image.Game.icon
             if viewModel.playerInGame.isItMe && !viewModel.doIMoved {
                 myMoveView
                 dropDownView

@@ -25,7 +25,7 @@ struct JoinGameView: View {
 
     var textField: some View {
         TextFieldBasedView(
-            title: "Join a Game",
+            title: String.Onboard.joinGame,
             submit: viewModel.submit,
             isLoading: $viewModel.isLoading,
             playerName: $viewModel.myName)

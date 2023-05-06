@@ -14,7 +14,7 @@ struct SubmitButton: View {
 
     var body: some View {
         Button(action: action) {
-            Text("Submit")
+            Text(String.Button.submit)
         }
         .disabled(disable)
     }

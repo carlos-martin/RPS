@@ -13,7 +13,7 @@ struct GameView: View {
 
     var body: some View {
         gameView(viewModel.game)
-            .navigationTitle("Active Game")
+            .navigationTitle(String.Game.activeGame)
             .genericErrorAlert(isPresented: $viewModel.onError)
     }
 
