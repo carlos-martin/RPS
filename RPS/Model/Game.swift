@@ -44,9 +44,12 @@ struct Game: Codable, JsonConvertable, Equatable {
 
     func playerMovedInCurrentRound(_ player: PlayerNumber) -> Bool {
         guard let activeRoundId = activeRoundId else {
+            printlog("Player \(player.description) has not moved (there is not active round)")
             return false
         }
-        return playerMoveIn(round: activeRoundId, player: player) != nil
+        let moved = playerMoveIn(round: activeRoundId, player: player) != nil
+        printlog("Player \(player.description) has \(moved ? "" : "not ")moved")
+        return moved
     }
 
     func move(of playerInGame: PlayerInGame, in roundId: String) -> String {

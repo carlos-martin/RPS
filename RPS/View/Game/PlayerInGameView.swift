@@ -46,9 +46,8 @@ struct PlayerInGameView: View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: "hand.raised")
             if viewModel.playerInGame.isItMe && !viewModel.doIMoved {
-                let text = viewModel.selection.isEmpty ? .Game.noMovement : viewModel.selection.description
-                Text(text).font(.title)
-                DropDownView(selection: $viewModel.selection)
+                myMoveView
+                dropDownView
                 submitButtonView
             } else {
                 Text(viewModel.playerMove).font(.title)
@@ -57,6 +56,15 @@ struct PlayerInGameView: View {
                 ProgressView()
             }
         }
+    }
+
+    var myMoveView: some View {
+        let move = viewModel.selection.isEmpty ? .Game.noMovement : viewModel.selection.description
+        return Text(move).font(.title)
+    }
+
+    var dropDownView: some View {
+        DropDownView(selection: $viewModel.selection)
     }
 
     var submitButtonView: some View {

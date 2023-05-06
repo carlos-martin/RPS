@@ -58,9 +58,11 @@ class PlayerInGameViewModel: ObservableObject {
             currentRoundId = round.id
             game.currentRound = round
 
+
             DispatchQueue.main.async {
                 self.doIMoved = true
                 self.isLoading = false
+                self.playerMove = self.selection.description
             }
         }
 
@@ -104,7 +106,7 @@ class PlayerInGameViewModel: ObservableObject {
     private func updatePlayerName(_ playerInGame: PlayerInGame, in game: Game) {
         DispatchQueue.main.async {
             self.playerName = game.playerName(of: playerInGame.number)
-            printlog(self.playerName)
+            printlog(playerInGame.description + "; Name: " + self.playerName)
         }
     }
 
