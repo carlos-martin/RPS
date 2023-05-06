@@ -22,6 +22,8 @@ extension String {
             static func waitingForAMove(of name: String) -> String {
                 "Waiting for \(name) to move"
             }
+            static var winner: String = "Winner!! 🏆"
+            static var loser: String = "Loser!! 💩"
         }
     }
 

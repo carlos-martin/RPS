@@ -34,15 +34,36 @@ struct GameSummaryView: View {
 
     var resolutionView: some View {
         VStack(alignment: .leading) {
+            resolutionViewFor(
+                name: viewModel.myName,
+                move: viewModel.myMove,
+                winner: viewModel.amITheWinner)
+            resolutionViewFor(
+                name: viewModel.opponentName,
+                move: viewModel.opponentMove,
+                winner: !viewModel.amITheWinner)
+        }
+    }
+
+    func resolutionViewFor(name: String, move: String, winner: Bool) -> some View {
+        VStack(alignment: .center) {
             HStack {
-                Text(viewModel.myName).font(.title)
-                Text(viewModel.myMove).font(.title)
+                Text(winner ? String.Game.Summary.winner : String.Game.Summary.loser)
+                    .font(.title)
+                Spacer()
             }
             HStack {
-                Text(viewModel.opponentName).font(.title)
-                Text(viewModel.opponentMove).font(.title)
+                Image.Player.icon
+                Text(name).font(.title2)
+                Spacer()
+            }
+            HStack{
+                Image.Game.icon
+                Text(move).font(.title2)
+                Spacer()
             }
         }
+        .padding()
     }
 
 }

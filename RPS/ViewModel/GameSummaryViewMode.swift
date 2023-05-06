@@ -15,6 +15,7 @@ class GameSummaryViewMode: ObservableObject {
     @Published var myMove: String
     @Published var opponentName: String
     @Published var opponentMove: String
+    @Published var amITheWinner: Bool
 
     private var me: Player
     private var opponent: Player?
@@ -35,6 +36,7 @@ class GameSummaryViewMode: ObservableObject {
         self.opponentName = ""
         self.opponentMove = ""
         self.gameOver = false
+        self.amITheWinner = false
     }
 
     func checkingGame() {
@@ -63,6 +65,7 @@ class GameSummaryViewMode: ObservableObject {
                         self.opponent = opponent
                         self.opponentName = opponent.name
                         self.opponentMove = game.playerMove(opponent, roundId: self.roundId)
+                        self.amITheWinner = game.isTheWinner(self.me, roundId: self.roundId)
                         self.gameOver = true
                     }
                 }

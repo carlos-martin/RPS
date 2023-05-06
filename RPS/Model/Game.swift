@@ -50,6 +50,19 @@ struct Game: Codable, JsonConvertable, Equatable {
         }
     }
 
+    func isTheWinner(_ player: Player, roundId: String) -> Bool {
+        guard let round = fetchRoundBy(id: roundId),
+              let winner = round.winner() else {
+            return false
+        }
+        switch winner {
+        case .one:
+            return player == player1
+        case .two:
+            return player == player2
+        }
+    }
+
     func playerOneInGame(myId: String) -> PlayerInGame {
         PlayerInGame(
             number: .one(player1),
