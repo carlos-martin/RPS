@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(*, deprecated)
 class GameViewModel: ObservableObject {
     @Published var onError: Bool
     @Published var playerOne: PlayerInGame

@@ -8,6 +8,7 @@
 import Combine
 import SwiftUI
 
+@available(*, deprecated)
 class PlayerInGameViewModel: ObservableObject {
     @Published var selection: String
     @Published var isDisable: Bool

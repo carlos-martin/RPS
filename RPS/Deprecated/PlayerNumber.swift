@@ -7,20 +7,6 @@
 
 import Foundation
 
-enum GamePlayerNumber {
-    case one
-    case two
-
-    var description: String {
-        switch self {
-        case .one:
-            return .Player.one
-        case .two:
-            return .Player.two
-        }
-    }
-}
-
 @available(*, deprecated)
 enum PlayerNumber: Equatable {
     case one(Player?=nil)
