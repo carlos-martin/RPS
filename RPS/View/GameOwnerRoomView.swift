@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct GameRoomView: View {
-    @ObservedObject var viewModel: GameRoomViewModel
+struct GameOwnerRoomView: View {
+    @ObservedObject var viewModel: GameOwnerRoomViewModel
 
     var body: some View {
         HStack {
@@ -69,8 +69,3 @@ struct GameRoomView: View {
     }
 }
 
-struct GameRoomView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmptyView()
-    }
-}

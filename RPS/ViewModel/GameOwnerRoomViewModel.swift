@@ -1,5 +1,5 @@
 //
-//  GameRoomViewModel.swift
+//  GameOwnerRoomViewModel.swift
 //  RPS
 //
 //  Created by Carlos Martin on 2023-05-06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GameRoomViewModel: ObservableObject {
+class GameOwnerRoomViewModel: ObservableObject {
     @Published var myNumberLabel: String
     @Published var myName: String
     @Published var mySelection: String
@@ -58,6 +58,7 @@ class GameRoomViewModel: ObservableObject {
     private func onSuccess(_ move: Move, in round: Round) {
         DispatchQueue.main.async {
             self.roundId = round.id
+            self.game.currentRound = round
             self.isLoading = false
             self.doIMoved = true
         }

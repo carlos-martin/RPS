@@ -7,61 +7,6 @@
 
 import SwiftUI
 
-class GameSummaryViewMode: ObservableObject {
-    @Published var game: Game
-    @Published var isWaiting: Bool
-    @Published var waitingMessage: String
-
-    private var me: Player
-    private var myNumber: GamePlayerNumber
-    private var roundId: String
-
-
-    init(game: Game, me: Player, myNumber: GamePlayerNumber, roundId: String) {
-        self.game = game
-        self.me = me
-        self.myNumber = myNumber
-        self.roundId = roundId
-        self.isWaiting = true
-        self.waitingMessage = ""
-    }
-
-    func checkingGame() {
-        GameService.sharedInstance
-            .fetchGame(id: game.id) { [weak self] game, error in
-                guard let self = self, let game = game else {
-                    onError(error)
-                    return
-                }
-                onSuccess(game)
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.checkingGame()
-                }
-            }
-
-        func onSuccess(_ game: Game) {
-            DispatchQueue.main.async {
-                self.game = game
-                self.isWaiting = !game.isTheRoundFinished(self.roundId)
-                self.waitingMessage = getWaitingMessage(game)
-            }
-        }
-
-        func onError(_ error: Error?) {
-            printlog(String(describing: error))
-        }
-
-        func getWaitingMessage(_ game: Game) -> String {
-            if let opponent = game.getTheOpponent(me) {
-                return String.Game.Summary.waitingForAMove(of: opponent.name)
-            } else {
-                return String.Game.Summary.waitingForOpponent
-            }
-        }
-    }
-}
-
 struct GameSummaryView: View {
     @ObservedObject var viewModel: GameSummaryViewMode
 
@@ -70,7 +15,7 @@ struct GameSummaryView: View {
             if viewModel.isWaiting {
                 waitingView
             } else {
-                EmptyView()
+                resolutionView
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -86,6 +31,20 @@ struct GameSummaryView: View {
                 .padding()
         }
     }
+
+    var resolutionView: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(viewModel.myName).font(.title)
+                Text(viewModel.myMove).font(.title)
+            }
+            HStack {
+                Text(viewModel.opponentName).font(.title)
+                Text(viewModel.opponentMove).font(.title)
+            }
+        }
+    }
+
 }
 
 struct GameSummaryView_Previews: PreviewProvider {

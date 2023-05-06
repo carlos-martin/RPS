@@ -32,8 +32,22 @@ struct Game: Codable, JsonConvertable, Equatable {
         return round != nil
     }
 
-    func getTheOpponent(_ player: Player) -> Player? {
+    func getTheOpponentOf(_ player: Player) -> Player? {
         player1 == player ? player2 : player1
+    }
+
+    func playerMove(_ player: Player, roundId: String) -> String {
+        let playerNumber = playerNumber(player)
+        guard let round = fetchRoundBy(id: roundId) else {
+            return ""
+        }
+
+        switch playerNumber {
+        case .one:
+            return round.player1Move?.description ?? ""
+        case .two:
+            return round.player2Move?.description ?? ""
+        }
     }
 
     func playerOneInGame(myId: String) -> PlayerInGame {
