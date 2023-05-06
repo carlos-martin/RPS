@@ -13,16 +13,16 @@ struct PlayerInGameView: View {
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 0) {
-                headerView
-                playerSummaryView
-                moveSummaryView
+                playerTitleView
+                playerInfoView
+                playerMoveView
             }
             Spacer()
         }
         .padding()
     }
 
-    var headerView: some View {
+    var playerTitleView: some View {
         HStack {
             Text(viewModel.title).font(.title2)
             if viewModel.playerInGame.isItMe {
@@ -31,18 +31,18 @@ struct PlayerInGameView: View {
         }
     }
 
-    var playerSummaryView: some View {
+    var playerInfoView: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: "person")
             Text(viewModel.playerName).font(.title)
         }
     }
 
-    var moveSummaryView: some View {
+    var playerMoveView: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: "hand.raised")
-            if viewModel.playerInGame.isItMe {
-                let text = viewModel.selection.isEmpty ? "No movement" : viewModel.selection.description
+            if viewModel.playerInGame.isItMe && !viewModel.doIMoved {
+                let text = viewModel.selection.isEmpty ? .Game.noMovement : viewModel.selection.description
                 Text(text).font(.title)
                 DropDownView(selection: $viewModel.selection)
                 submitButtonView

@@ -8,5 +8,5 @@
 import Foundation
 
 func printlog(_ message: String, function: String=#function) {
-    print(function + ": " + message)
+    print("⚠️" + " " + function + ": " + message)
 }
