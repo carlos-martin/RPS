@@ -17,4 +17,7 @@ extension Image {
     struct DropDown {
         static var icon: Image = Image(systemName: "chevron.up.chevron.down")
     }
+    struct Close {
+        static var icon: Image = Image(systemName: "xmark")
+    }
 }

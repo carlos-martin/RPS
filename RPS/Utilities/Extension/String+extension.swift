@@ -27,7 +27,6 @@ extension String {
             static var tie: String = "Tie!! 🤝"
         }
     }
-
     struct Player {
         static var noName: String = "No player"
         static var one: String = "Player 1"
@@ -51,6 +50,11 @@ extension String {
             static var title: String = "Oops"
             static var message: String = "No games available, try again later or create a new game."
             static var button: String = "OK"
+        }
+        struct Dismiss {
+            static var title: String = "Confirmation"
+            static var message: String = "If you leave the game you won't be able to recover it later on. \nAre you sure you want to proceed?"
+            static var button: String = "Yes"
         }
     }
 }

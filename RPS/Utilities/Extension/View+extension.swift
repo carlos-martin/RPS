@@ -27,6 +27,12 @@ extension View {
             Alert.genericError
         }
     }
+
+    func quiteGameAlert(isPresented: Binding<Bool>, action: (() -> Void)?) -> some View {
+        alert(isPresented: isPresented) {
+            Alert.quiteGame(action: action)
+        }
+    }
 }
 
 extension Alert {
@@ -34,15 +40,21 @@ extension Alert {
         Alert(
             title: Text(String.Alert.Generic.title),
             message: Text(String.Alert.Generic.message),
-            dismissButton: .default(Text(String.Alert.Generic.button))
-        )
+            dismissButton: .default(Text(String.Alert.Generic.button)))
     }
 
     static var noGames: Alert {
         Alert(
             title: Text(String.Alert.NoGames.title),
             message: Text(String.Alert.NoGames.message),
-            dismissButton: .default(Text(String.Alert.NoGames.button))
-        )
+            dismissButton: .default(Text(String.Alert.NoGames.button)))
+    }
+
+    static func quiteGame(action: (() -> Void)?) -> Alert {
+        Alert(
+            title: Text(String.Alert.Dismiss.title),
+            message: Text(String.Alert.Dismiss.message),
+            primaryButton: .destructive(Text(String.Alert.Dismiss.button), action: action),
+            secondaryButton: .cancel())
     }
 }
