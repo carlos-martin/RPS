@@ -37,15 +37,17 @@ struct GameSummaryView: View {
             resolutionViewFor(
                 name: viewModel.myName,
                 move: viewModel.myMove,
-                winner: viewModel.amITheWinner)
+                winner: viewModel.amITheWinner,
+                victories: viewModel.myVictories)
             resolutionViewFor(
                 name: viewModel.opponentName,
                 move: viewModel.opponentMove,
-                winner: !viewModel.amITheWinner)
+                winner: !viewModel.amITheWinner,
+                victories: viewModel.opponentVictories)
         }
     }
 
-    func resolutionViewFor(name: String, move: String, winner: Bool) -> some View {
+    func resolutionViewFor(name: String, move: String, winner: Bool, victories: Int) -> some View {
         VStack(alignment: .center) {
             HStack {
                 let message = viewModel.isATie ? String.Game.Summary.tie : (winner ? String.Game.Summary.winner : String.Game.Summary.loser)
@@ -60,6 +62,11 @@ struct GameSummaryView: View {
             HStack{
                 Image.Game.icon
                 Text(move).font(.title2)
+                Spacer()
+            }
+            HStack {
+                Image.Tropgy.icon
+                Text(victories.description).font(.title2)
                 Spacer()
             }
         }

@@ -13,8 +13,10 @@ class GameSummaryViewMode: ObservableObject {
     @Published var waitingMessage: String
     @Published var myName: String
     @Published var myMove: String
+    @Published var myVictories: Int
     @Published var opponentName: String
     @Published var opponentMove: String
+    @Published var opponentVictories: Int
     @Published var amITheWinner: Bool
     @Published var isATie: Bool
     @Published var gameOver: Bool
@@ -34,8 +36,10 @@ class GameSummaryViewMode: ObservableObject {
         self.waitingMessage = ""
         self.myName = me.name
         self.myMove = game.playerMove(me, roundId: roundId)
+        self.myVictories = 0
         self.opponentName = ""
         self.opponentMove = ""
+        self.opponentVictories = 0
         self.gameOver = false
         self.amITheWinner = false
         self.isATie = true
@@ -94,11 +98,13 @@ class GameSummaryViewMode: ObservableObject {
         opponent = player
         opponentName = player.name
         opponentMove = game.playerMove(player, roundId: self.roundId)
+        opponentVictories = game.victories(player)
     }
 
     private func updateWiner(in game: Game, with opponent: Player) {
         amITheWinner = game.isTheWinner(me, roundId: roundId)
         let opponentIsTheWinner = game.isTheWinner(opponent, roundId: roundId)
         isATie = !amITheWinner && !opponentIsTheWinner
+        myVictories = game.victories(me)
     }
 }

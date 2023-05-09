@@ -20,4 +20,7 @@ extension Image {
     struct Close {
         static var icon: Image = Image(systemName: "xmark")
     }
+    struct Tropgy {
+        static var icon: Image = Image(systemName: "trophy")
+    }
 }

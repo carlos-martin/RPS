@@ -62,6 +62,22 @@ struct Game: Codable, JsonConvertable, Equatable {
             return player == player2
         }
     }
+
+    func victories(_ player: Player) -> Int {
+        guard let player1 = player1, let player2 = player2 else {
+            return 0
+        }
+        var victories: Int = 0
+        for round in finishedRounds {
+            let winner = round.winner()
+            if winner == .one && player == player1 {
+                victories += 1
+            } else if winner == .two && player == player2 {
+                victories += 1
+            }
+        }
+        return victories
+    }
 }
 
 private extension Game {
