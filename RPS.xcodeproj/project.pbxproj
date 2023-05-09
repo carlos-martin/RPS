@@ -49,6 +49,7 @@
 		1A69F08E29F80D79001908DA /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F08D29F80D79001908DA /* Move.swift */; };
 		1A69F09029F80F69001908DA /* URLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F08F29F80F69001908DA /* URLConfig.swift */; };
 		1A69F09329F80FD9001908DA /* ServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F09229F80FD9001908DA /* ServiceRequest.swift */; };
+		1A7F64182A0AC2A8001B6DDF /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F64172A0AC2A8001B6DDF /* NavigationUtil.swift */; };
 		1A88D98729F916E5002AEB45 /* AllGamesQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88D98629F916E5002AEB45 /* AllGamesQuery.swift */; };
 		1A88D98929F91700002AEB45 /* GameQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88D98829F91700002AEB45 /* GameQuery.swift */; };
 		1A88D98B29F9171F002AEB45 /* RoundQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88D98A29F9171F002AEB45 /* RoundQuery.swift */; };
@@ -119,6 +120,7 @@
 		1A69F08D29F80D79001908DA /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		1A69F08F29F80F69001908DA /* URLConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfig.swift; sourceTree = "<group>"; };
 		1A69F09229F80FD9001908DA /* ServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequest.swift; sourceTree = "<group>"; };
+		1A7F64172A0AC2A8001B6DDF /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		1A88D98629F916E5002AEB45 /* AllGamesQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGamesQuery.swift; sourceTree = "<group>"; };
 		1A88D98829F91700002AEB45 /* GameQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameQuery.swift; sourceTree = "<group>"; };
 		1A88D98A29F9171F002AEB45 /* RoundQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundQuery.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				1A1214FC29F9AA630083F147 /* Extension */,
 				1AADE5822A024429003495C6 /* Logger.swift */,
 				1A5126672A07008700875DE7 /* GamePlayerNumber.swift */,
+				1A7F64172A0AC2A8001B6DDF /* NavigationUtil.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				1A69F09329F80FD9001908DA /* ServiceRequest.swift in Sources */,
 				1A5126662A06F43E00875DE7 /* GameRoomViewModel.swift in Sources */,
 				1A69F08E29F80D79001908DA /* Move.swift in Sources */,
+				1A7F64182A0AC2A8001B6DDF /* NavigationUtil.swift in Sources */,
 				1A88D98F29F91754002AEB45 /* AddPlayerQuery.swift in Sources */,
 				1ADE94CF2A06ABF9000901DB /* String+extension.swift in Sources */,
 			);

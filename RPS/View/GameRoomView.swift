@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GameRoomView: View {
     @ObservedObject var viewModel: GameRoomViewModel
+    @State private var closeGame: Bool = false
 
     var body: some View {
         HStack {
@@ -28,6 +29,19 @@ struct GameRoomView: View {
                 me: viewModel.me,
                 myNumber: viewModel.myNumber,
                 roundId: viewModel.roundId))
+        }
+        .navigationBarItems(
+            trailing:
+                Button(action: {
+                    closeGame = true
+                }, label: {
+                    Image.Close.icon
+                })
+        )
+        .alert(isPresented: $closeGame) {
+            Alert.quiteGame {
+                NavigationUtil.popToRootView()
+            }
         }
 
     }
