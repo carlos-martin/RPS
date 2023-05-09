@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameSummaryView: View {
     @ObservedObject var viewModel: GameSummaryViewMode
-    @State private var closeGame: Bool = false
+    @State private var quitGame: Bool = false
 
     var body: some View {
         VStack {
@@ -26,12 +26,12 @@ struct GameSummaryView: View {
         .navigationBarItems(
             trailing:
                 Button(action: {
-                    closeGame = true
+                    quitGame = true
                 }, label: {
                     Image.Close.icon
                 })
         )
-        .alert(isPresented: $closeGame) {
+        .alert(isPresented: $quitGame) {
             Alert.quiteGame {
                 viewModel.gameOver = true
                 NavigationUtil.popToRootView()
