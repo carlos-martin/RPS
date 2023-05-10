@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import RPS
 
 class RoundTests: XCTestCase {
     func testRoundFromJSON() throws {

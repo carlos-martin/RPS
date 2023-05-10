@@ -9,8 +9,8 @@ import Foundation
 
 struct Game: Codable, JsonConvertable, Equatable {
     let id: String
-    let player1: Player?
-    let player2: Player?
+    var player1: Player?
+    var player2: Player?
     var currentRound: Round?
     var finishedRounds: [Round]
 
